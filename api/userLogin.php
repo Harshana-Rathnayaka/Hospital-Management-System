@@ -28,7 +28,7 @@ if (isset($_POST['btnLogin'])) {
                 if ($user['user_type'] == 'ADMIN') {
 
                     // session and reroute
-                    $_SESSION['username'] = $_POST['username'];
+                    $_SESSION['username'] = $user['username'];
                     $_SESSION['full_name'] = $user['full_name'];
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['user_id'] = $user['user_id'];
@@ -39,7 +39,7 @@ if (isset($_POST['btnLogin'])) {
                 } elseif ($user['user_type'] == 'DOCTOR') {
 
                     // session and reroute
-                    $_SESSION['username'] = $_POST['username'];
+                    $_SESSION['username'] = $user['username'];
                     $_SESSION['full_name'] = $user['full_name'];
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['user_id'] = $user['user_id'];
@@ -50,7 +50,7 @@ if (isset($_POST['btnLogin'])) {
                 } elseif ($user['user_type'] == 'NURSE') {
 
                     // session and reroute
-                    $_SESSION['username'] = $_POST['username'];
+                    $_SESSION['username'] = $user['username'];
                     $_SESSION['full_name'] = $user['full_name'];
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['user_id'] = $user['user_id'];
@@ -61,7 +61,7 @@ if (isset($_POST['btnLogin'])) {
                 } elseif ($user['user_type'] == 'STAFF') {
 
                     // session and reroute
-                    $_SESSION['username'] = $_POST['username'];
+                    $_SESSION['username'] = $user['username'];
                     $_SESSION['full_name'] = $user['full_name'];
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['user_id'] = $user['user_id'];
@@ -72,7 +72,7 @@ if (isset($_POST['btnLogin'])) {
                 } elseif ($user['user_type'] == 'PATIENT') {
 
                     // session and reroute
-                    $_SESSION['username'] = $_POST['username'];
+                    $_SESSION['username'] = $user['username'];
                     $_SESSION['full_name'] = $user['full_name'];
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['user_id'] = $user['user_id'];
