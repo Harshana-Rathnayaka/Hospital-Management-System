@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +21,8 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 
 <body>
@@ -178,7 +187,7 @@
                         </nav>
                     </div>
 
-                   
+
 
                     <!-- Cards on top -->
                     <div class="row">
@@ -258,7 +267,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">New Account</h4>
-                                <form class="form-sample">
+                                <form class="form-sample" action="../api/createUser.php" method="POST">
                                     <p class="card-description"> Personal info </p>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -287,15 +296,6 @@
                                                 <div class="col-sm-9">
                                                     <input class="form-control" name="contact" required
                                                         placeholder="0715450212" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Date of Birth</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" name="dob" required
-                                                        placeholder="dd/mm/yyyy" />
                                                 </div>
                                             </div>
                                         </div>
@@ -340,12 +340,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group row">
-                                                <div class="col-sm-6">
-                                                    <button type="submit" class="btn btn-success btn-block mr-2">Submit</button>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <button class="btn btn-block btn-danger">Cancel</button>
-                                                </div>
+                                                    <button type="submit" name="btnNewUser" class="btn btn-success btn-block mr-2">Submit</button>
                                             </div>
                                         </div>
                                     </div>
@@ -356,6 +351,50 @@
 
                 </div>
                 <!-- content-wrapper ends -->
+
+                <?php
+if (@$_SESSION['success'] == true) {
+    $success = $_SESSION['success'];
+    ?>
+          <script>
+            swal({
+              title: "SUCCESS!",
+              text: "<?php echo $success; ?>",
+              icon: "success",
+              button: "OK",
+            });
+          </script>
+        <?php
+unset($_SESSION['success']);
+} elseif (@$_SESSION['error'] == true) {
+    $error = $_SESSION['error'];
+    ?>
+          <script>
+            swal({
+              title: "ERROR!",
+              text: "<?php echo $error; ?>",
+              icon: "warning",
+              button: "OK",
+            });
+          </script>
+        <?php
+unset($_SESSION['error']);
+} elseif (@$_SESSION['missing'] == true) {
+    $missing = $_SESSION['missing'];
+    ?>
+          <script>
+            swal({
+              title: "INFO!",
+              text: "<?php echo $missing; ?>",
+              icon: "info",
+              button: "OK",
+            });
+          </script>
+        <?php
+unset($_SESSION['missing']);
+}
+?>
+
                 <!-- partial:partials/_footer.html -->
                 <footer class="footer">
                     <div class="d-sm-flex justify-content-center justify-content-sm-between">

@@ -1,3 +1,11 @@
+<?php
+
+session_start();
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +22,8 @@
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="../assets/images/favicon.png" />
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 
 <body>
@@ -115,10 +125,6 @@
             </li>
           </ul>
           <ul class="navbar-nav navbar-nav-right">
-
-
-
-
             <li class="nav-item dropdown">
               <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                 <div class="navbar-profile">
@@ -371,6 +377,50 @@
 
         </div>
         <!-- content-wrapper ends -->
+
+        <?php
+if (@$_SESSION['success'] == true) {
+    $success = $_SESSION['success'];
+    ?>
+          <script>
+            swal({
+              title: "SUCCESS!",
+              text: "<?php echo $success; ?>",
+              icon: "success",
+              button: "OK",
+            });
+          </script>
+        <?php
+unset($_SESSION['success']);
+} elseif (@$_SESSION['error'] == true) {
+    $error = $_SESSION['error'];
+    ?>
+          <script>
+            swal({
+              title: "ERROR!",
+              text: "<?php echo $error; ?>",
+              icon: "warning",
+              button: "OK",
+            });
+          </script>
+        <?php
+unset($_SESSION['error']);
+} elseif (@$_SESSION['missing'] == true) {
+    $missing = $_SESSION['missing'];
+    ?>
+          <script>
+            swal({
+              title: "INFO!",
+              text: "<?php echo $missing; ?>",
+              icon: "info",
+              button: "OK",
+            });
+          </script>
+        <?php
+unset($_SESSION['missing']);
+}
+?>
+
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
