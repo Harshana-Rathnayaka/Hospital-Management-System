@@ -68,7 +68,7 @@
           <span class="nav-link">Navigation</span>
         </li>
         <li class="nav-item menu-items">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="index.php">
             <span class="menu-icon">
               <i class="mdi mdi-speedometer"></i>
             </span>
@@ -77,7 +77,7 @@
         </li>
 
         <li class="nav-item menu-items">
-          <a class="nav-link" href="new-user.html">
+          <a class="nav-link" href="new-user.php">
             <span class="menu-icon">
               <i class="mdi mdi-account-plus"></i>
             </span>
@@ -86,7 +86,7 @@
         </li>
 
         <li class="nav-item menu-items">
-          <a class="nav-link" href="settings.html">
+          <a class="nav-link" href="settings.php">
             <span class="menu-icon">
               <i class="mdi mdi-settings"></i>
             </span>

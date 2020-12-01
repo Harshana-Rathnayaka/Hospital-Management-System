@@ -70,7 +70,7 @@
                     <span class="nav-link">Navigation</span>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="index.php">
                         <span class="menu-icon">
                             <i class="mdi mdi-speedometer"></i>
                         </span>
@@ -78,8 +78,8 @@
                     </a>
                 </li>
 
-                <li class="nav-item menu-items">
-                    <a class="nav-link" href="new-user.html">
+                <li class="nav-item active menu-items">
+                    <a class="nav-link" href="new-user.php">
                         <span class="menu-icon">
                             <i class="mdi mdi-account-plus"></i>
                         </span>
@@ -87,15 +87,14 @@
                     </a>
                 </li>
 
-                <li class="nav-item active menu-items">
-                    <a class="nav-link" href="settings.html">
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="settings.php">
                         <span class="menu-icon">
                             <i class="mdi mdi-settings"></i>
                         </span>
                         <span class="menu-title">Settings</span>
                     </a>
                 </li>
-
             </ul>
         </nav>
         <!-- partial -->
@@ -173,13 +172,13 @@
                     <div class="page-header">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Account</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Settings</li>
+                                <li class="breadcrumb-item"><a href="#">Users</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">New</li>
                             </ol>
                         </nav>
                     </div>
 
-
+                   
 
                     <!-- Cards on top -->
                     <div class="row">
@@ -253,36 +252,91 @@
                         </div>
                     </div>
 
-                    <!-- Settings input form -->
-                    <div class="col-12 grid-margin stretch-card">
+
+                    <!-- Input form -->
+                    <div class="col-12 grid-margin">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Update Account</h4>
-                                <p class="card-description"> Account info </p>
-                                <form class="forms-sample">
-                                    <div class="form-group">
-                                        <label for="exampleInputName1">Name</label>
-                                        <input type="text" class="form-control" id="exampleInputName1" required
-                                            placeholder="John Doe">
+                                <h4 class="card-title">New Account</h4>
+                                <form class="form-sample">
+                                    <p class="card-description"> Personal info </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Full Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="full_name" placeholder="John Doe" required
+                                                        class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Email</label>
+                                                <div class="col-sm-9">
+                                                    <input type="email" name="email" placeholder="example@email.com"
+                                                        required class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail3">Username</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail3" required
-                                            placeholder="username123">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail3">Email</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail3" required
-                                            placeholder="example@email.com">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail3">Contact</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail3" required
-                                            placeholder="0172456987">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Contact</label>
+                                                <div class="col-sm-9">
+                                                    <input class="form-control" name="contact" required
+                                                        placeholder="0715450212" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Date of Birth</label>
+                                                <div class="col-sm-9">
+                                                    <input class="form-control" name="dob" required
+                                                        placeholder="dd/mm/yyyy" />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
+                                    <p class="card-description"> Account info </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Username</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="username" placeholder="username123"
+                                                        required class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Password</label>
+                                                <div class="col-sm-9">
+                                                    <input type="password" name="password" placeholder="***" required
+                                                        class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Account Type</label>
+                                                <div class="col-sm-9">
+                                                    <select name="user_type" required class="form-control">
+                                                        <option value="DOCTOR">Doctor</option>
+                                                        <option value="NURSE">Nurse</option>
+                                                        <option value="STAFF">Staff</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group row">
@@ -300,20 +354,16 @@
                         </div>
                     </div>
 
-
-
                 </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:partials/_footer.html -->
                 <footer class="footer">
                     <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright ©
-                            <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com
-                            </a>2020</span>
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a
+                                href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2020</span>
                         <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
                             Made with &#128154; by
-                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
-                                Dreeko
+                            <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank"> Dreeko
                                 Corporations
                             </a>
                         </span>
