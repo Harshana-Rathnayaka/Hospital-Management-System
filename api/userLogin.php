@@ -109,6 +109,7 @@ if (isset($_POST['btnLogin'])) {
     } else {
 
         // missing fields
+        $_SESSION['missing'] = "Required fields are missing.";
         $response['error'] = true;
         $response['message'] = "Required fields are missing";
         header("location:../login.php");

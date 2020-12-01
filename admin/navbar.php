@@ -1,6 +1,6 @@
 <nav class="navbar p-0 fixed-top d-flex flex-row">
   <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-    <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../assets/images/logo-mini.svg"
+    <a class="navbar-brand brand-logo-mini" href="index.php"><img src="../assets/images/logo-mini.svg"
         alt="logo" /></a>
   </div>
   <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
@@ -19,17 +19,6 @@
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
           aria-labelledby="profileDropdown">
           <h6 class="p-3 mb-0">Profile</h6>
-          <div class="dropdown-divider"></div>
-          <a href="settings.php" class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <div class="preview-icon bg-dark rounded-circle">
-                <i class="mdi mdi-settings text-success"></i>
-              </div>
-            </div>
-            <div class="preview-item-content">
-              <p class="preview-subject mb-1">Settings</p>
-            </div>
-          </a>
           <div class="dropdown-divider"></div>
           <a href="../logout.php?logout" class="dropdown-item preview-item">
             <div class="preview-thumbnail">
