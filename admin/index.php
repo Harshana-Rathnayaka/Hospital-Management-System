@@ -1,8 +1,21 @@
 <?php
-
 session_start();
+if (!isset($_SESSION['username'])) {
+    $_SESSION['error'] = "Session timed out. Please login to continue.";
+    header('location:../login.php');
+} elseif (isset($_SESSION['user_type'])) {
+    $user_type = $_SESSION['user_type'];
 
-
+    if ($user_type == 'DOCTOR') {
+        header('location:../doctor/index.php');
+    } else if ($user_type == 'NURSE') {
+        header('location:../nurse/index.php');
+    } else if ($user_type == 'STAFF') {
+        header('location:../staff/index.php');
+    } else if ($user_type == 'PATIENT') {
+        header('location:../patient/index.php');
+    }
+}
 ?>
 
 
