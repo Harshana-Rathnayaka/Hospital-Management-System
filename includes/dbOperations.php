@@ -42,48 +42,12 @@ class DbOperations
     public function userLogin($username, $pass)
     {
         $password = md5($pass); // password decrypting
-        $stmt = $this->con->prepare("SELECT `id` FROM `users` WHERE `username` = ? AND `password` = ?");
+        $stmt = $this->con->prepare("SELECT `user_id` FROM `users` WHERE `username` = ? AND `password` = ?");
         $stmt->bind_param("ss", $username, $password);
         $stmt->execute();
         $stmt->store_result();
         return $stmt->num_rows > 0;
-    }
-
-    // adding new manufacturer
-    public function createManufacturer($name, $address, $email, $contact)
-    {
-        if ($this->isManufacturerExist($name)) {
-            // manufacturer exists
-            return 0;
-        } else {
-            $stmt = $this->con->prepare("INSERT INTO `manufacturers` (`make_id`, `name`, `address`, `email`, `contact`) VALUES (NULL, ?, ?, ?, ?);");
-            $stmt->bind_param("ssss", $name, $address, $email, $contact);
-
-            if ($stmt->execute()) {
-                // manufacturer created
-                return 1;
-            } else {
-                // some error
-                return 2;
-            }
-        }
-    }
-
-    // adding new vehicle
-    public function createVehicle($make, $model, $year, $engine_capacity, $transmission, $horsepower, $condition, $colour, $convertible, $seats, $price, $img_link)
-    {
-
-        $stmt = $this->con->prepare("INSERT INTO `vehicles`(`make`, `model`, `year`, `engine_capacity`, `transmission`, `horsepower`, `vehicle_condition`, `colour`, `convertible`, `seats`, `price`, `image_link`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
-        $stmt->bind_param("ssssssssssss", $make, $model, $year, $engine_capacity, $transmission, $horsepower, $condition, $colour, $convertible, $seats, $price, $img_link);
-
-        if ($stmt->execute()) {
-            // vehicle created
-            return 1;
-        } else {
-            // some error
-            return 2;
-        }
-    }
+    }    
 
     // add a new colour
     public function addNewColour($colour)
