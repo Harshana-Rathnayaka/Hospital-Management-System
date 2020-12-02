@@ -310,6 +310,46 @@ class DbOperations
 
     }
 
+    // getting all appointments table to the doctor
+    public function getAllAppointmentsByDoctor($user_id)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.patient_id WHERE `doctor_id` = ?");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
+    // getting pending appointments table to the doctor
+    public function getPendingAppointmentsByDoctor($user_id)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.patient_id WHERE `doctor_id` = ? AND `appointment_status` = 'PENDING'");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
+    // getting rejected appointments table to the doctor
+    public function getRejectedAppointmentsByDoctor($user_id)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.patient_id WHERE `doctor_id` = ? AND `appointment_status` = 'REJECTED'");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
+    // getting completed appointments table to the doctor
+    public function getCompletedAppointmentsByDoctor($user_id)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.patient_id WHERE `doctor_id` = ? AND `appointment_status` = 'COMPLETED'");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
     // getting the orders count by user
     public function getOrdersCountByUserId($user_id)
     {

@@ -21,24 +21,42 @@
     </li>
 
     <li class="nav-item nav-category">
-      <span class="nav-link">Navigation</span>
+      <span class="nav-link">Appointments</span>
     </li>
 
-    <li class="nav-item menu-items <?php if ($currentPage == 'dashboard') {echo 'active';}?>">
+    <li class="nav-item menu-items <?php if ($currentPage == 'all-appointments') {echo 'active';}?>">
       <a class="nav-link" href="index.php">
         <span class="menu-icon">
-          <i class="mdi mdi-speedometer"></i>
+          <i class="mdi mdi-calendar-text"></i>
         </span>
-        <span class="menu-title">Dashboard</span>
+        <span class="menu-title">All Time</span>
       </a>
     </li>
 
-    <li class="nav-item menu-items <?php if ($currentPage == 'new-user') {echo 'active';}?>">
-      <a class="nav-link" href="new-user.php">
+    <li class="nav-item menu-items <?php if ($currentPage == 'pending-appointments') {echo 'active';}?>">
+      <a class="nav-link" href="pending-appointments.php">
         <span class="menu-icon">
-          <i class="mdi mdi-account-plus"></i>
+          <i class="mdi mdi-calendar-clock"></i>
         </span>
-        <span class="menu-title">New User</span>
+        <span class="menu-title">Pending</span>
+      </a>
+    </li>
+
+    <li class="nav-item menu-items <?php if ($currentPage == 'rejected-appointments') {echo 'active';}?>">
+      <a class="nav-link" href="rejected-appointments.php">
+        <span class="menu-icon">
+          <i class="mdi mdi-calendar-remove"></i>
+        </span>
+        <span class="menu-title">Rejected</span>
+      </a>
+    </li>
+
+    <li class="nav-item menu-items <?php if ($currentPage == 'completed-appointments') {echo 'active';}?>">
+      <a class="nav-link" href="completed-appointments.php">
+        <span class="menu-icon">
+          <i class="mdi mdi-calendar-multiple-check"></i>
+        </span>
+        <span class="menu-title">Completed</span>
       </a>
     </li>
 

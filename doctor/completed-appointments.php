@@ -23,54 +23,57 @@ if (!isset($_SESSION['username'])) {
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Hospital Management System</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- Layout styles -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <!-- End layout styles -->
-  <link rel="shortcut icon" href="../assets/images/favicon.png" />
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hospital Management System</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../assets/images/favicon.png" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
 <body>
-  <div class="container-scroller">
+    <div class="container-scroller">
 
-    <!-- sidebar -->
+        <!-- sidebar -->
     <?php
-$currentPage = 'all-appointments';
+$currentPage = 'completed-appointments';
 include 'sidebar.php';
 ?>
     <!-- sidebar -->
 
-    <div class="container-fluid page-body-wrapper">
+        <div class="container-fluid page-body-wrapper">
 
-     <!-- navbar -->
+            <!-- navbar -->
       <?php include 'navbar.php';?>
       <!-- navbar -->
 
-      <div class="main-panel">
-        <div class="content-wrapper">
+            <div class="main-panel">
+                <div class="content-wrapper">
 
-            <!-- Breadcrumb -->
-            <div class="page-header">
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Appointments</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">All</li>
-                </ol>
-              </nav>
-            </div>
+                <!-- breadcrumb -->
+                    <div class="page-header">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Appointments</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Completed</li>
+                            </ol>
+                        </nav>
+                    </div>
 
 
 
-          <!-- Table -->
+
+
+
+                    <!-- Table -->
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
@@ -90,7 +93,7 @@ include 'sidebar.php';
 
                     <?php
 require_once '../api/getLists.php';
-while ($row = mysqli_fetch_array($all_appointments_doctor)):
+while ($row = mysqli_fetch_array($completed_appointments_doctor)):
     $appointment_status = $row['appointment_status'];
     ?>
 					                      <tr>
@@ -101,18 +104,14 @@ while ($row = mysqli_fetch_array($all_appointments_doctor)):
 
 
 		                              <td>
-		                              <label class="badge
-		                              <?php
-    if ($appointment_status == 'PENDING') {echo 'badge-warning';} elseif ($appointment_status == 'ACCEPTED') {echo 'badge-success';} elseif ($appointment_status == 'COMPLETED') {echo 'badge-primary';} elseif ($appointment_status == 'REJECTED') {echo 'badge-danger';}
+		                              <label class="badge badge-primary">
+		                            <?php echo $row['appointment_status'] ?>
+		                            </label>
+	                              </td>
 
-?>">
-	                            <?php echo $row['appointment_status'] ?>
-	                            </label>
-                              </td>
+	                      </tr>
 
-                      </tr>
-
-                      <?php
+	                      <?php
 endwhile;
 ?>
 
@@ -123,10 +122,10 @@ endwhile;
             </div>
           </div>
 
-        </div>
-        <!-- content-wrapper ends -->
+                </div>
+                <!-- content-wrapper ends -->
 
-        <?php
+                <?php
 if (@$_SESSION['success'] == true) {
     $success = $_SESSION['success'];
     ?>
@@ -169,29 +168,33 @@ unset($_SESSION['missing']);
 }
 ?>
 
-        <!-- footer -->
+                <!-- footer -->
         <?php include '../footer.php';?>
         <!-- footer -->
 
-      </div>
-      <!-- main-panel ends -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
-  <!-- plugins:js -->
-  <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
-  <!-- inject:js -->
-  <script src="../assets/js/off-canvas.js"></script>
-  <script src="../assets/js/hoverable-collapse.js"></script>
-  <script src="../assets/js/misc.js"></script>
-  <script src="../assets/js/settings.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page -->
-  <script src="../assets/js/dashboard.js"></script>
-  <!-- End custom js for this page -->
-
-  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="../assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+    <script src="../assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../assets/js/off-canvas.js"></script>
+    <script src="../assets/js/hoverable-collapse.js"></script>
+    <script src="../assets/js/misc.js"></script>
+    <script src="../assets/js/settings.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="../assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
   <script>
