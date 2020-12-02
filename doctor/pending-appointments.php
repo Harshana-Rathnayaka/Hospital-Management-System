@@ -70,7 +70,37 @@ include 'sidebar.php';
 
 
 
+            <!-- Reject appointment modal -->
+            <div class="modal fade" id="rejectAppointmentForm" tabindex="-1" role="dialog"
+            aria-labelledby="rejectAppointmentFormTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="rejectAppointmentFormTitle">Reject Appointment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
 
+                    <form action="../api/rejectAppointment.php" method="POST">
+
+                    <input name="appointment_id" id="appointment_id" type="hidden">
+
+                      <div class="form-group">
+                        <label>Reason</label>
+                        <textarea name="comment" required placeholder="Start typing..." class="form-control" cols="30" rows="10"></textarea>
+                        <small>Please enter the reason for rejecting this appointment</small>
+                      </div>
+
+                      <button type="submit" name="rejectAppointment" class="btn btn-block btn-primary">Save</button>
+                      
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
                     <!-- Table -->
@@ -97,30 +127,32 @@ require_once '../api/getLists.php';
 while ($row = mysqli_fetch_array($pending_appointments_doctor)):
     $appointment_status = $row['appointment_status'];
     ?>
-						                      <tr>
-						                        <td> <?php echo $row['appointment_id'] ?> </td>
-						                        <td> <?php echo $row['full_name'] ?> </td>
-						                        <td> <?php echo $row['date'] ?> </td>
-						                        <td> <?php echo $row['description'] ?> </td>
+								                      <tr>
+								                        <td> <?php echo $row['appointment_id'] ?> </td>
+								                        <td> <?php echo $row['full_name'] ?> </td>
+								                        <td> <?php echo $row['date'] ?> </td>
+								                        <td> <?php echo $row['description'] ?> </td>
 
 
-			                              <td>
-			                              <label class="badge badge-warning">
-			                            <?php echo $row['appointment_status'] ?>
-			                            </label>
-		                              </td>
+					                              <td>
+					                              <label class="badge badge-warning">
+					                            <?php echo $row['appointment_status'] ?>
+					                            </label>
+				                              </td>
 
-	                                <td>
-	                                <form action="../api/acceptAppointment.php" method="POST">
-	                                <input name="appointment_id" type="hidden" value="<?php echo $row['appointment_id'] ?>">
-	                            <button type="submit" name="acceptAppointment" class="btn btn-outline-success btn-sm"><i class="mdi mdi-check"></i></button>
-	                            <button type="submit" name="rejectAppointment" class="btn btn-outline-danger btn-sm"><i class="mdi mdi-close"></i></button>
-	                                </form>
-	                                </td>
+			                                <td>
+			                                <form action="../api/acceptAppointment.php" method="POST">
+			                                <input name="appointment_id" type="hidden" value="<?php echo $row['appointment_id'] ?>">
+			                            <button type="submit" name="acceptAppointment" class="btn btn-outline-success btn-sm"><i class="mdi mdi-check"></i></button>
+			                            <button type="button" class="btn btnReject btn-outline-danger btn-sm">
+	                                <i class="mdi mdi-close"></i>
+	                                </button>
+			                                </form>
+			                                </td>
 
-		                      </tr>
+				                      </tr>
 
-		                      <?php
+				                      <?php
 endwhile;
 ?>
 
@@ -211,6 +243,25 @@ unset($_SESSION['missing']);
       $('#appointmentsTable').DataTable({
         "lengthMenu": [5, 10],
       });
+    });
+  </script>
+
+  <!-- open reject appointment modal on button click -->
+<script>
+    $('.btnReject').on('click', function() {
+
+      $('#rejectAppointmentForm').modal('show');
+
+      $tr = $(this).closest('tr');
+
+      var data = $tr.children('td').map(function() {
+        return $(this).text();
+      }).get();
+
+      console.log(data);
+
+      $('#appointment_id').val(data[0]);
+
     });
   </script>
 </body>

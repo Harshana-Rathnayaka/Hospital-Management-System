@@ -397,6 +397,21 @@ class DbOperations
         }
     }
 
+    // reject an appointment by doctor
+    public function rejectAppointment($appointment_id, $comment)
+    {
+        $stmt = $this->con->prepare("UPDATE `appointments` SET `appointment_status` = 'REJECTED', `comments` = ? WHERE `appointment_id` = ?");
+        $stmt->bind_param("si", $comment, $appointment_id);
+
+        if ($stmt->execute()) {
+            // appointment accepted
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
     // activate or deactivate user account by updating user status from admin side
     public function updateUserStatus($user_id, $status)
     {
