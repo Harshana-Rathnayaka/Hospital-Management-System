@@ -38,6 +38,9 @@ if (isset($_SESSION['user_id'])) {
 
     }
 
+    // lists for patient
+    $doctors = $db->getDoctors();
+
 } else {
     $_SESSION['error'] = "Session timed out. Please login to continue.";
     $response['error'] = true;

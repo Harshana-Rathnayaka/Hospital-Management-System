@@ -70,18 +70,18 @@ class DbOperations
         return $stmt->num_rows > 0;
     }
 
-    // add a new colour
-    public function addNewColour($colour)
+    // create new appointment by user
+    public function createAppointment($user_id, $doctor_id, $date, $description)
     {
-        $stmt = $this->con->prepare("INSERT INTO `colours` (`colour`) VALUES (?);");
-        $stmt->bind_param("s", $colour);
+        $stmt = $this->con->prepare("INSERT INTO `appointments` (`appointment_id`, `patient_id`, `doctor_id`, `description`, `date`, `appointment_status`) VALUES (NULL, ?, ?, ?, ?, 'PENDING');");
+        $stmt->bind_param("iiss", $user_id, $doctor_id, $description, $date);
 
         if ($stmt->execute()) {
-            // new colour created
-            return 1;
+            // new appointment created
+            return 0;
         } else {
             // some error
-            return 2;
+            return 1;
         }
     }
 
@@ -288,6 +288,14 @@ class DbOperations
     public function getUsers()
     {
         $stmt = $this->con->prepare("SELECT * FROM `users` WHERE `user_type` != 'ADMIN' AND `user_status` = 'ACTIVE'");
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    // retrieving the doctors for patient
+    public function getDoctors()
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `users` WHERE `user_type` = 'DOCTOR' AND `user_status` = 'ACTIVE'");
         $stmt->execute();
         return $stmt->get_result();
     }

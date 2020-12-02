@@ -72,73 +72,38 @@ include 'sidebar.php';
                     <div class="col-12 grid-margin">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">New Account</h4>
-                                <form class="form-sample" action="../api/createUser.php" method="POST">
-                                    <p class="card-description"> Personal info </p>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Full Name</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" name="full_name" placeholder="John Doe" required
-                                                        class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Email</label>
-                                                <div class="col-sm-9">
-                                                    <input type="email" name="email" placeholder="example@email.com"
-                                                        required class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Contact</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" name="contact" required
-                                                        placeholder="0715450212" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <h4 class="card-title">New Appointment</h4>
+                                <form class="form-sample" action="../api/createAppointment.php" method="POST">
 
-                                    <p class="card-description"> Account info </p>
+                                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Username</label>
+                                                <label class="col-sm-3 col-form-label">Doctor</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="username" placeholder="username123"
-                                                        required class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Password</label>
-                                                <div class="col-sm-9">
-                                                    <input type="password" name="password" placeholder="***" required
-                                                        class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Account Type</label>
-                                                <div class="col-sm-9">
-                                                    <select name="user_type" required class="form-control">
-                                                        <option value="DOCTOR">Doctor</option>
-                                                        <option value="NURSE">Nurse</option>
-                                                        <option value="STAFF">Staff</option>
+                                                    <select name="doctor_id" required class="form-control">
+<?php
+include '../api/getLists.php';
+if ($doctors):
+    while ($row = mysqli_fetch_array($doctors)):
+    ?>
+											        <option value="<?php echo $row['user_id']; ?>"> <?php echo $row['full_name']; ?></option>
+<?php
+endwhile;
+endif;
+?>
                                                     </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Date</label>
+                                                <div class="col-sm-9">
+                                                    <input type="date" name="date" required class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -146,7 +111,18 @@ include 'sidebar.php';
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group row">
-                                                    <button type="submit" name="btnNewUser" class="btn btn-success btn-block mr-2">Submit</button>
+                                                <label class="col-sm-3 col-form-label">Description</label>
+                                                <div class="col-sm-9">
+                                                <textarea name="description" required placeholder="Start typing..." class="form-control" cols="30" rows="10"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                    <button type="submit" name="btnNewAppointment" class="btn btn-success btn-block mr-2">Submit</button>
                                             </div>
                                         </div>
                                     </div>
