@@ -12,8 +12,8 @@ if (!isset($_SESSION['username'])) {
         header('location:../nurse/index.php');
     } else if ($user_type == 'STAFF') {
         header('location:../staff/index.php');
-    } else if ($user_type == 'PATIENT') {
-        header('location:../patient/index.php');
+    } else if ($user_type == 'ADMIN') {
+        header('location:../admin/index.php');
     }
 }
 ?>
@@ -58,31 +58,8 @@ include 'sidebar.php';
       <div class="main-panel">
         <div class="content-wrapper">
 
-          <!-- The banner on top -->
-          <div class="row">
-            <div class="col-12 grid-margin stretch-card">
-              <div class="card corona-gradient-card">
-                <div class="card-body py-0 px-0 px-sm-3">
-                  <div class="row align-items-center">
-                    <div class="col-4 col-sm-3 col-xl-2">
-                      <img src="../assets/images/dashboard/Group126@2x.png" class="gradient-corona-img img-fluid" alt="">
-                    </div>
-                    <div class="col-5 col-sm-7 col-xl-8 p-0">
-                      <h4 class="mb-1 mb-sm-0">Hello <?php echo $_SESSION['full_name']; ?>,</h4>
-                      <p class="mb-0 font-weight-normal d-none d-sm-block">How are you doing today? Good luck with
-                        today's work!</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <!-- Cards on top -->
-          <?php include 'top-cards.php';?>
-          <!-- Cards on top -->
 
-          </div>
 
           <!-- Table -->
           <div class="col-lg-12 grid-margin stretch-card">
@@ -94,36 +71,33 @@ include 'sidebar.php';
                     <thead>
                       <tr>
                         <th width="10"> # </th>
-                        <th> Name </th>
-                        <th width="10"> Username </th>
-                        <th> Email </th>
-                        <th width="10"> Contact </th>
-                        <th width="10"> Type </th>
+                        <th width="10"> Doctor </th>
+                        <th width="10"> Date </th>
+                        <th width="10"> Status </th>
+
                       </tr>
                     </thead>
                     <tbody>
 
                     <?php
+require_once '../api/getLists.php';
+
 while ($row = mysqli_fetch_array($users_admin)):
     $user_type = $row['user_type'];
     ?>
-			                      <tr>
-			                        <td> <?php echo $row['user_id'] ?> </td>
-			                        <td> <?php echo $row['full_name'] ?> </td>
-			                        <td> <?php echo $row['username'] ?> </td>
-			                        <td> <?php echo $row['email'] ?> </td>
-			                        <td> <?php echo $row['contact'] ?> </td>
-			                       
-   
-                              <td> 
-                              <label class="badge 
-                              <?php 
-                              if ($user_type == 'DOCTOR') {echo 'badge-primary';} 
-                              elseif ($user_type == 'NURSE') {echo 'badge-danger';} 
-                              elseif ($user_type == 'STAFF') {echo 'badge-info';} 
-                              elseif ($user_type == 'PATIENT') {echo 'badge-success';} 
+				                      <tr>
+				                        <td> <?php echo $row['user_id'] ?> </td>
+				                        <td> <?php echo $row['full_name'] ?> </td>
+				                        <td> <?php echo $row['username'] ?> </td>
 
-                              ?>">
+
+
+	                              <td>
+	                              <label class="badge
+	                              <?php
+    if ($user_type == 'DOCTOR') {echo 'badge-primary';} elseif ($user_type == 'NURSE') {echo 'badge-danger';} elseif ($user_type == 'STAFF') {echo 'badge-info';} elseif ($user_type == 'PATIENT') {echo 'badge-success';}
+
+?>">
 	                            <?php echo $row['user_type'] ?>
 	                            </label>
                               </td>

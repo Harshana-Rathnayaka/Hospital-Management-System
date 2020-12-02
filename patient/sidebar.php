@@ -33,12 +33,12 @@
       </a>
     </li>
 
-    <li class="nav-item menu-items <?php if ($currentPage == 'new-user') {echo 'active';}?>">
-      <a class="nav-link" href="new-user.php">
+    <li class="nav-item menu-items <?php if ($currentPage == 'new-appointment') {echo 'active';}?>">
+      <a class="nav-link" href="new-appointment.php">
         <span class="menu-icon">
-          <i class="mdi mdi-account-plus"></i>
+          <i class="mdi mdi-calendar-plus"></i>
         </span>
-        <span class="menu-title">New User</span>
+        <span class="menu-title">New Appointment</span>
       </a>
     </li>
 

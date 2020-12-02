@@ -12,8 +12,8 @@ if (!isset($_SESSION['username'])) {
         header('location:../nurse/index.php');
     } else if ($user_type == 'STAFF') {
         header('location:../staff/index.php');
-    } else if ($user_type == 'PATIENT') {
-        header('location:../patient/index.php');
+    } else if ($user_type == 'ADMIN') {
+        header('location:../admin/index.php');
     }
 }
 ?>
@@ -44,7 +44,7 @@ if (!isset($_SESSION['username'])) {
 
         <!-- sidebar -->
     <?php
-$currentPage = 'new-user';
+$currentPage = 'new-appointment';
 include 'sidebar.php';
 ?>
     <!-- sidebar -->
@@ -60,19 +60,12 @@ include 'sidebar.php';
                     <div class="page-header">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Users</a></li>
+                                <li class="breadcrumb-item"><a href="#">Appointments</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">New</li>
                             </ol>
                         </nav>
                     </div>
 
-
-
-                    <!-- Cards on top -->
-          <?php include 'top-cards.php';?>
-          <!-- Cards on top -->
-
-                    </div>
 
 
                     <!-- Input form -->
