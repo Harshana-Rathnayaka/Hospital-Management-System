@@ -47,7 +47,7 @@ class DbOperations
         $stmt->execute();
         $stmt->store_result();
         return $stmt->num_rows > 0;
-    }    
+    }
 
     // add a new colour
     public function addNewColour($colour)
@@ -266,7 +266,7 @@ class DbOperations
     // retrieving users table
     public function getUsers()
     {
-        $stmt = $this->con->prepare("SELECT `id`, CONCAT( `first_name`, ' ', `last_name`) AS 'name', `username`, `email`, `contact`, `user_status` FROM `users` WHERE `user_type` = 1");
+        $stmt = $this->con->prepare("SELECT * FROM `users` WHERE `user_type` != 'ADMIN' AND `user_status` = 'ACTIVE'");
         $stmt->execute();
         return $stmt->get_result();
     }
