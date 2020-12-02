@@ -300,13 +300,14 @@ class DbOperations
         return $stmt->get_result();
     }
 
-    // getting the vehicle count
-    public function getVehicleCount()
+    // getting the appointments table to the user
+    public function getAppointmentsByUser($user_id)
     {
-        $stmt = $this->con->prepare("SELECT * FROM `vehicles` WHERE `in_stock` = 1");
+        $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.doctor_id WHERE `patient_id` = ?");
+        $stmt->bind_param("i", $user_id);
         $stmt->execute();
-        $result = $stmt->get_result();
-        return mysqli_num_rows($result);
+        return $stmt->get_result();
+
     }
 
     // getting the orders count by user

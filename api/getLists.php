@@ -40,6 +40,7 @@ if (isset($_SESSION['user_id'])) {
 
     // lists for patient
     $doctors = $db->getDoctors();
+    $appointments_user = $db->getAppointmentsByUser($user_id);
 
 } else {
     $_SESSION['error'] = "Session timed out. Please login to continue.";

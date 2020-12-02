@@ -67,12 +67,13 @@ include 'sidebar.php';
               <div class="card-body">
                 </p>
                 <div class="table-responsive">
-                  <table id="usersTable" class="table table-bordered">
+                  <table id="appointmentsTable" class="table table-bordered">
                     <thead>
                       <tr>
                         <th width="10"> # </th>
                         <th width="10"> Doctor </th>
                         <th width="10"> Date </th>
+                        <th width="10"> Description </th>
                         <th width="10"> Status </th>
 
                       </tr>
@@ -82,25 +83,28 @@ include 'sidebar.php';
                     <?php
 require_once '../api/getLists.php';
 
-while ($row = mysqli_fetch_array($users_admin)):
-    $user_type = $row['user_type'];
+while ($row = mysqli_fetch_array($appointments_user)):
+    $appointment_status = $row['appointment_status'];
     ?>
 				                      <tr>
-				                        <td> <?php echo $row['user_id'] ?> </td>
+				                        <td> <?php echo $row['appointment_id'] ?> </td>
 				                        <td> <?php echo $row['full_name'] ?> </td>
-				                        <td> <?php echo $row['username'] ?> </td>
+				                        <td> <?php echo $row['date'] ?> </td>
+                                <td> <?php echo $row['description'] ?> </td>
 
 
 
 	                              <td>
 	                              <label class="badge
 	                              <?php
-    if ($user_type == 'DOCTOR') {echo 'badge-primary';} elseif ($user_type == 'NURSE') {echo 'badge-danger';} elseif ($user_type == 'STAFF') {echo 'badge-info';} elseif ($user_type == 'PATIENT') {echo 'badge-success';}
+    if ($appointment_status == 'PENDING') {echo 'badge-warning';} elseif ($appointment_status == 'ACCEPTED') {echo 'badge-success';} elseif ($appointment_status == 'COMPLETED') {echo 'badge-info';} elseif ($appointment_status == 'REJECTED') {echo 'badge-danger';}
 
 ?>">
-	                            <?php echo $row['user_type'] ?>
+	                            <?php echo $row['appointment_status'] ?>
 	                            </label>
                               </td>
+
+				                      
 
                       </tr>
 
@@ -188,7 +192,7 @@ unset($_SESSION['missing']);
 
   <script>
     $(document).ready(function() {
-      $('#usersTable').DataTable({
+      $('#appointmentsTable').DataTable({
         "lengthMenu": [5, 10],
       });
     });
