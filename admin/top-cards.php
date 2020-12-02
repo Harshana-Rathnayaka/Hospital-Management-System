@@ -1,4 +1,11 @@
-<div class="row">
+<?php
+
+require_once '../api/getLists.php';
+
+?>
+
+
+          <div class="row">
             <div class="col-sm-3 grid-margin">
               <div class="card">
                 <div class="card-body">
@@ -6,7 +13,7 @@
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
-                        <h2 class="mb-0">32123</h2>
+                        <h2 class="mb-0"><?php echo $doctor_count; ?></h2>
                       </div>
                     </div>
                     <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
@@ -23,7 +30,7 @@
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
-                        <h2 class="mb-0">45850</h2>
+                        <h2 class="mb-0"><?php echo $nurse_count; ?></h2>
                       </div>
                     </div>
                     <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
@@ -40,7 +47,7 @@
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
-                        <h2 class="mb-0">2039</h2>
+                        <h2 class="mb-0"><?php echo $staff_count; ?></h2>
                       </div>
                     </div>
                     <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
@@ -57,7 +64,7 @@
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
-                        <h2 class="mb-0">2039</h2>
+                        <h2 class="mb-0"><?php echo $patient_count; ?></h2>
                       </div>
                     </div>
                     <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
@@ -66,4 +73,4 @@
                   </div>
                 </div>
               </div>
-            </div>        
+            </div>
