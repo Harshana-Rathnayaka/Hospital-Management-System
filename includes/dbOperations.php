@@ -382,14 +382,14 @@ class DbOperations
 
     /* CRUD  -> U -> UPDATE */
 
-    // deactivate user account  by updating user status
-    public function deleteAccountById($user_id)
+    // accept an appointment by doctor
+    public function acceptAppointment($appointment_id)
     {
-        $stmt = $this->con->prepare("UPDATE `users` SET `user_status` = 0 WHERE `id` = ?");
-        $stmt->bind_param("i", $user_id);
+        $stmt = $this->con->prepare("UPDATE `appointments` SET `appointment_status` = 'ACCEPTED' WHERE `appointment_id` = ?");
+        $stmt->bind_param("i", $appointment_id);
 
         if ($stmt->execute()) {
-            // user account status updated and account deactivated
+            // appointment accepted
             return 0;
         } else {
             // some error

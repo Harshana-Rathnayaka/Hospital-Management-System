@@ -87,6 +87,7 @@ include 'sidebar.php';
                         <th width="10"> Date </th>
                         <th> Description </th>
                         <th width="10"> Status </th>
+                        <th width="10"> Action </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -96,22 +97,30 @@ require_once '../api/getLists.php';
 while ($row = mysqli_fetch_array($pending_appointments_doctor)):
     $appointment_status = $row['appointment_status'];
     ?>
-					                      <tr>
-					                        <td> <?php echo $row['appointment_id'] ?> </td>
-					                        <td> <?php echo $row['full_name'] ?> </td>
-					                        <td> <?php echo $row['date'] ?> </td>
-					                        <td> <?php echo $row['description'] ?> </td>
+						                      <tr>
+						                        <td> <?php echo $row['appointment_id'] ?> </td>
+						                        <td> <?php echo $row['full_name'] ?> </td>
+						                        <td> <?php echo $row['date'] ?> </td>
+						                        <td> <?php echo $row['description'] ?> </td>
 
 
-		                              <td>
-		                              <label class="badge badge-warning">
-		                            <?php echo $row['appointment_status'] ?>
-		                            </label>
-	                              </td>
+			                              <td>
+			                              <label class="badge badge-warning">
+			                            <?php echo $row['appointment_status'] ?>
+			                            </label>
+		                              </td>
 
-	                      </tr>
+	                                <td>
+	                                <form action="../api/acceptAppointment.php" method="POST">
+	                                <input name="appointment_id" type="hidden" value="<?php echo $row['appointment_id'] ?>">
+	                            <button type="submit" name="acceptAppointment" class="btn btn-outline-success btn-sm"><i class="mdi mdi-check"></i></button>
+	                            <button type="submit" name="rejectAppointment" class="btn btn-outline-danger btn-sm"><i class="mdi mdi-close"></i></button>
+	                                </form>
+	                                </td>
 
-	                      <?php
+		                      </tr>
+
+		                      <?php
 endwhile;
 ?>
 
