@@ -1,3 +1,23 @@
+<?php
+session_start();
+if (isset($_SESSION['username'])) {
+    $user_type = $_SESSION['user_type'];
+    if ($user_type == 'ADMIN') {
+        header("location:admin/index.php");
+    } elseif ($user_type == 'DOCTOR') {
+        header("location:doctor/index.php");
+    } elseif ($user_type == 'NURSE') {
+        header("location:nurse/index.php");
+    } elseif ($user_type == 'STAFF') {
+        header("location:staff/index.php");
+    } elseif ($user_type == 'PATIENT') {
+        header("location:patient/index.php");
+    }
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,36 +41,62 @@
             <div class="card col-lg-4 mx-auto">
               <div class="card-body px-5 py-5">
                 <h3 class="card-title text-left mb-3">Register</h3>
-                <form>
-                  <div class="form-group">
+                <form action="api/registerUser.php" method="POST">
+                <div class="form-group">
+                    <label>Full name</label>
+                    <input type="text" name="full_name" required placeholder="John Doe" class="form-control p_input">
+                  </div><div class="form-group">
                     <label>Username</label>
-                    <input type="text" class="form-control p_input">
+                    <input type="text" name="username" required placeholder="john123" class="form-control p_input">
                   </div>
                   <div class="form-group">
                     <label>Email</label>
-                    <input type="email" class="form-control p_input">
+                    <input type="email" name="email" required placeholder="example@email.com" class="form-control p_input">
+                  </div>
+                  <div class="form-group">
+                    <label>Contact</label>
+                    <input type="text" name="contact" required placeholder="0112364578" class="form-control p_input">
                   </div>
                   <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control p_input">
+                    <input type="password" name="password" required placeholder="......" class="form-control p_input">
                   </div>
-                  <div class="form-group d-flex align-items-center justify-content-between">
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input"> Remember me </label>
-                    </div>
-                    <a href="#" class="forgot-pass">Forgot password</a>
+                  <div class="form-group d-flex align-items-center ">
+
+
+
+                    <?php
+if (@$_SESSION['error'] == true) {
+    ?>
+                        <label class="text-danger">
+                            <?php echo $_SESSION['error']; ?>
+                       </label>
+                    <?php
+unset($_SESSION['error']);
+} elseif (@$_SESSION['missing'] == true) {
+    ?>
+                        <label class="text-info">
+                            <?php echo $_SESSION['missing']; ?>
+                       </label>
+                    <?php
+unset($_SESSION['success']);
+} elseif (@$_SESSION['success'] == true) {
+    ?>
+                        <label class="text-success">
+                            <?php echo $_SESSION['success']; ?>
+                       </label>
+                    <?php
+unset($_SESSION['success']);
+}
+?>
+
+
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
+                    <button type="submit" name="btnRegisterUser" class="btn btn-primary btn-block enter-btn">Sign Up</button>
                   </div>
-                  <div class="d-flex">
-                    <button class="btn btn-facebook col mr-2">
-                      <i class="mdi mdi-facebook"></i> Facebook </button>
-                    <button class="btn btn-google col">
-                      <i class="mdi mdi-google-plus"></i> Google plus </button>
-                  </div>
-                  <p class="sign-up text-center">Already have an Account?<a href="#"> Sign Up</a></p>
+                  
+                  <p class="sign-up text-center">Already have an Account?<a href="login.php"> Sign in</a></p>
                   <p class="terms">By creating an account you are accepting our<a href="#"> Terms & Conditions</a></p>
                 </form>
               </div>

@@ -64,14 +64,14 @@ if (@$_SESSION['error'] == true) {
 unset($_SESSION['error']);
 } elseif (@$_SESSION['missing'] == true) {
     ?>
-                        <label class="text-danger">
+                        <label class="text-info">
                             <?php echo $_SESSION['missing']; ?>
                        </label>
                     <?php
 unset($_SESSION['success']);
 } elseif (@$_SESSION['success'] == true) {
     ?>
-                        <label class="text-danger">
+                        <label class="text-success">
                             <?php echo $_SESSION['success']; ?>
                        </label>
                     <?php
@@ -82,7 +82,7 @@ unset($_SESSION['success']);
 
                   </div>
                   <div class="text-center">
-                    <button type="submit" name="btnLogin" class="btn btn-primary btn-block enter-btn">Login</button>
+                    <button type="submit" name="btnLogin" class="btn btn-primary btn-block enter-btn">Sign in</button>
                   </div>
                   <p class="sign-up">Don't have an Account?<a href="register.php"> Sign Up</a></p>
                 </form>

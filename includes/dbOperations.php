@@ -17,7 +17,7 @@ class DbOperations
 
     /* CRUD  -> C -> CREATE */
 
-    // user registration
+    // user creation by admin
     public function createUser($full_name, $username, $email, $contact, $pass, $user_type)
     {
         $password = md5($pass); // password encrypting
@@ -30,6 +30,27 @@ class DbOperations
 
             if ($stmt->execute()) {
                 // user created
+                return 1;
+            } else {
+                // some error
+                return 2;
+            }
+        }
+    }
+
+    // user registration
+    public function registerUser($full_name, $username, $email, $contact, $pass)
+    {
+        $password = md5($pass); // password encrypting
+        if ($this->isUserExist($username, $email)) {
+            // user exists
+            return 0;
+        } else {
+            $stmt = $this->con->prepare("INSERT INTO `users` (`user_id`, `full_name`, `username`, `email`, `contact`, `password`, `user_type`, `user_status`) VALUES (NULL, ?, ?, ?, ?, ?, 'PATIENT', 'ACTIVE');");
+            $stmt->bind_param("sssss", $full_name, $username, $email, $contact, $password);
+
+            if ($stmt->execute()) {
+                // user registered
                 return 1;
             } else {
                 // some error
