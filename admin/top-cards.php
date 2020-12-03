@@ -17,7 +17,7 @@ require_once '../api/getLists.php';
                       </div>
                     </div>
                     <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                      <i class="icon-lg mdi mdi-stethoscope text-primary ml-auto"></i>
+                      <i class="icon-lg mdi mdi-medical-bag text-primary ml-auto"></i>
                     </div>
                   </div>
                 </div>
