@@ -8,8 +8,8 @@ if (!isset($_SESSION['username'])) {
 
     if ($user_type == 'DOCTOR') {
         header('location:../doctor/index.php');
-    } else if ($user_type == 'NURSE') {
-        header('location:../nurse/index.php');
+    } else if ($user_type == 'ADMIN') {
+        header('location:../admin/index.php');
     } else if ($user_type == 'STAFF') {
         header('location:../staff/index.php');
     } else if ($user_type == 'PATIENT') {
@@ -44,7 +44,7 @@ if (!isset($_SESSION['username'])) {
 
     <!-- sidebar -->
     <?php
-$currentPage = 'dashboard';
+$currentPage = 'pending-prescriptions';
 include 'sidebar.php';
 ?>
     <!-- sidebar -->
@@ -58,77 +58,80 @@ include 'sidebar.php';
       <div class="main-panel">
         <div class="content-wrapper">
 
-          <!-- The banner on top -->
-          <div class="row">
-            <div class="col-12 grid-margin stretch-card">
-              <div class="card corona-gradient-card">
-                <div class="card-body py-0 px-0 px-sm-3">
-                  <div class="row align-items-center">
-                    <div class="col-4 col-sm-3 col-xl-2">
-                      <img src="../assets/images/dashboard/Group126@2x.png" class="gradient-corona-img img-fluid" alt="">
-                    </div>
-                    <div class="col-5 col-sm-7 col-xl-8 p-0">
-                      <h4 class="mb-1 mb-sm-0">Hello <?php echo $_SESSION['full_name']; ?>,</h4>
-                      <p class="mb-0 font-weight-normal d-none d-sm-block">How are you doing today? Good luck with
-                        today's work!</p>
-                    </div>
+
+        <!-- view prescription modal -->
+        <div class="modal fade" id="viewPrescriptionForm" tabindex="-1" role="dialog"
+            aria-labelledby="viewPrescriptionFormTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="viewPrescriptionFormTitle">Prescription Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <form>
+
+                    <div class="form-group">
+                        <label>Patient</label>
+                        <input id="patient" disabled class="form-control bg-dark text-light" cols="30" rows="10">
+                      </div>
+                      <div class="form-group">
+                        <label>Prescription</label>
+                        <textarea id="prescription" disabled class="form-control bg-dark text-light" cols="30" rows="10"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label>Address</label>
+                        <textarea id="address" disabled class="form-control bg-dark text-light" cols="30" rows="10"></textarea>
+                      </div>
+
+                      <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-block btn-secondary">Close</button>
+
+                    </form>
+
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <!-- Cards on top -->
-          <?php include 'top-cards.php';?>
-          <!-- Cards on top -->
-
-          </div>
 
           <!-- Table -->
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                </p>
                 <div class="table-responsive">
-                  <table id="usersTable" class="table table-bordered">
+                  <table id="usersTable" class="table table-sm table-bordered">
                     <thead>
                       <tr>
-                        <th width="10"> # </th>
-                        <th> Name </th>
-                        <th width="10"> Username </th>
-                        <th> Email </th>
-                        <th width="10"> Contact </th>
-                        <th width="10"> Type </th>
+                        <th width="10%"> # </th>
+                        <th width="45%"> Patient </th>
+                        <th width="15"> Status </th>
+                        <th width="20%"> Action </th>
                       </tr>
                     </thead>
                     <tbody>
 
                     <?php
-while ($row = mysqli_fetch_array($users_admin)):
-    $user_type = $row['user_type'];
-    ?>
+require_once '../api/getLists.php';
+
+while ($row = mysqli_fetch_array($pending_prescriptions)):
+?>
 			                      <tr>
-			                        <td> <?php echo $row['user_id'] ?> </td>
+			                        <td> <?php echo $row['prescription_id'] ?> </td>
 			                        <td> <?php echo $row['full_name'] ?> </td>
-			                        <td> <?php echo $row['username'] ?> </td>
-			                        <td> <?php echo $row['email'] ?> </td>
-			                        <td> <?php echo $row['contact'] ?> </td>
-			                       
-   
-                              <td> 
-                              <label class="badge 
-                              <?php 
-                              if ($user_type == 'DOCTOR') {echo 'badge-primary';} 
-                              elseif ($user_type == 'NURSE') {echo 'badge-danger';} 
-                              elseif ($user_type == 'STAFF') {echo 'badge-info';} 
-                              elseif ($user_type == 'PATIENT') {echo 'badge-success';} 
+			                        <td> <label class="badge badge-warning"> <?php echo $row['prescription_status'] ?> </label> </td>
+			                        <td>
+			                                <form action="../api/sendPrescription.php" method="POST">
 
-                              ?>">
-	                            <?php echo $row['user_type'] ?>
-	                            </label>
-                              </td>
+			                                <input name="prescription_id" type="hidden" value="<?php echo $row['prescription_id'] ?>">
 
-                      </tr>
+			                            <button type="button" class="btn btnViewPrescription btn-outline-info btn-sm"> <i class="mdi mdi-eye"></i> </button>
+			                            <button type="submit" name="btnShipPrescription" class="btn btn-outline-success btn-sm"><i class="mdi mdi-send"></i></button>
+
+			                                </form>
+			                                </td>
+                            </tr>
 
                       <?php
 endwhile;
@@ -217,6 +220,29 @@ unset($_SESSION['missing']);
       $('#usersTable').DataTable({
         "lengthMenu": [5, 10],
       });
+    });
+  </script>
+
+  <!-- view prescription modal on button click -->
+<script>
+    $('.btnViewPrescription').on('click', function() {
+
+      $('#viewPrescriptionForm').modal('show');
+
+      $tr = $(this).closest('tr');
+
+      var data = $tr.children('td').map(function() {
+        return $(this).text();
+      }).get();
+
+      var id = $('#patientID').val();
+
+      console.log(data);
+
+      $('#patient').val(data[1]);
+      $('#prescription').val(data[2]);
+      $('#address').val(data[2]);
+
     });
   </script>
 </body>
