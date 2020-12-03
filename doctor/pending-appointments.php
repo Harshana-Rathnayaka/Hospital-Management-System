@@ -90,7 +90,7 @@ include 'sidebar.php';
                       <div class="form-group">
                         <label>Reason</label>
                         <textarea name="comment" required placeholder="Start typing..." class="form-control" cols="30" rows="10"></textarea>
-                        <small>Please enter the reason for rejecting this appointment</small>
+                        <small class="text-success">Please enter the reason for rejecting this appointment</small>
                       </div>
 
                       <button type="submit" name="rejectAppointment" class="btn btn-block btn-primary">Save</button>

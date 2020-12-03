@@ -90,7 +90,7 @@ include 'sidebar.php';
                       <div class="form-group">
                         <label>Prescription</label>
                         <textarea name="prescription" required placeholder="Start typing..." class="form-control" cols="30" rows="10"></textarea>
-                        <small>Please enter the prescription</small>
+                        <small class="text-success">Please enter the prescription</small>
                       </div>
 
                       <button type="submit" name="btnAddPrescription" class="btn btn-block btn-primary">Save</button>
