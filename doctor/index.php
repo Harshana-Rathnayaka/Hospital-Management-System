@@ -63,9 +63,43 @@ include 'sidebar.php';
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Appointments</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">All</li>
+                  <li class="breadcrumb-item active" aria-current="page">Ongoing</li>
                 </ol>
               </nav>
+            </div>
+
+
+             <!-- Upload prescription modal -->
+             <div class="modal fade" id="uploadPrescriptionForm" tabindex="-1" role="dialog"
+            aria-labelledby="uploadPrescriptionFormTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="uploadPrescriptionFormTitle">Add Prescription</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <form action="../api/uploadPrescription.php" method="POST">
+
+                    <input name="appointment_id" id="appointment_id" type="hidden">
+                    <input name="patient_id" id="patient_id" type="hidden">
+
+                      <div class="form-group">
+                        <label>Prescription</label>
+                        <textarea name="prescription" required placeholder="Start typing..." class="form-control" cols="30" rows="10"></textarea>
+                        <small>Please enter the prescription</small>
+                      </div>
+
+                      <button type="submit" name="btnAddPrescription" class="btn btn-block btn-primary">Save</button>
+                      
+                    </form>
+
+                  </div>
+                </div>
+              </div>
             </div>
 
 
@@ -84,32 +118,36 @@ include 'sidebar.php';
                         <th width="10"> Date </th>
                         <th> Description </th>
                         <th width="10"> Status </th>
+                        <th > Action </th>
                       </tr>
                     </thead>
                     <tbody>
 
                     <?php
 require_once '../api/getLists.php';
-while ($row = mysqli_fetch_array($all_appointments_doctor)):
+while ($row = mysqli_fetch_array($ongoing_appointments_doctor)):
     $appointment_status = $row['appointment_status'];
     ?>
-					                      <tr>
-					                        <td> <?php echo $row['appointment_id'] ?> </td>
-					                        <td> <?php echo $row['full_name'] ?> </td>
-					                        <td> <?php echo $row['date'] ?> </td>
-					                        <td> <?php echo $row['description'] ?> </td>
+						                      <tr>
+						                        <td> <?php echo $row['appointment_id'] ?> </td>
+						                        <td> <?php echo $row['full_name'] ?> </td>
+						                        <td> <?php echo $row['date'] ?> </td>
+						                        <td> <?php echo $row['description'] ?> </td>
 
 
-		                              <td>
-		                              <label class="badge
-		                              <?php
+			                              <td>
+			                              <label class="badge
+			                              <?php
     if ($appointment_status == 'PENDING') {echo 'badge-warning';} elseif ($appointment_status == 'ACCEPTED') {echo 'badge-success';} elseif ($appointment_status == 'COMPLETED') {echo 'badge-primary';} elseif ($appointment_status == 'REJECTED') {echo 'badge-danger';}
 
 ?>">
 	                            <?php echo $row['appointment_status'] ?>
 	                            </label>
                               </td>
-
+                              <td>
+                    <input value=" <?php echo $row['patient_id'] ?> " name="patient_id" id="patientID" type="hidden">
+                              <button type="submit" class="btnCompleteAppointment btn btn-icon-text btn-outline-primary btn-sm"><i class="mdi mdi-file-check btn-icon-prepend"></i> Done </button>
+                              </td>
                       </tr>
 
                       <?php
@@ -199,6 +237,29 @@ unset($_SESSION['missing']);
       $('#appointmentsTable').DataTable({
         "lengthMenu": [5, 10],
       });
+    });
+  </script>
+
+    <!-- open add prescription modal on button click -->
+<script>
+    $('.btnCompleteAppointment').on('click', function() {
+
+      $('#uploadPrescriptionForm').modal('show');
+
+     var id = $('#patientID').val();
+      $tr = $(this).closest('tr');
+
+      var data = $tr.children('td').map(function() {
+        return $(this).text();
+      }).get();
+
+
+      console.log(data);
+      console.log(id);
+
+      $('#appointment_id').val(data[0]);
+      $('#patient_id').val(id);
+
     });
   </script>
 </body>

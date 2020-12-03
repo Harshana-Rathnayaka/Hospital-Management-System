@@ -85,6 +85,21 @@ class DbOperations
         }
     }
 
+    // uploading prescription by doctor
+    public function uploadPrescription($doctor_id, $patient_id, $appointment_id, $prescription)
+    {
+        $stmt = $this->con->prepare("INSERT INTO `prescriptions` (`prescription_id`, `doctor_id`, `patient_id`, `appointment_id`, `prescription`, `prescription_status`) VALUES (NULL, ?, ?, ?, ?, 'PENDING');");
+        $stmt->bind_param("iiis", $doctor_id, $patient_id, $appointment_id, $prescription);
+
+        if ($stmt->execute()) {
+            // prescription uploaded
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
     // adding to wishlist
     public function addToWishlist($user_id, $vehicle_id, $make_id, $quantity)
     {
@@ -404,7 +419,22 @@ class DbOperations
         $stmt->bind_param("si", $comment, $appointment_id);
 
         if ($stmt->execute()) {
-            // appointment accepted
+            // appointment rejected
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
+    // complete an appointment by doctor
+    public function completeAppointment($appointment_id)
+    {
+        $stmt = $this->con->prepare("UPDATE `appointments` SET `appointment_status` = 'COMPLETED' WHERE `appointment_id` = ?");
+        $stmt->bind_param("i", $appointment_id);
+
+        if ($stmt->execute()) {
+            // appointment completed
             return 0;
         } else {
             // some error
