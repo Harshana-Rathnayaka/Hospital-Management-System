@@ -23,106 +23,118 @@ if (!isset($_SESSION['username'])) {
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Hospital Management System</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- Layout styles -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <!-- End layout styles -->
-  <link rel="shortcut icon" href="../assets/images/favicon.png" />
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hospital Management System</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../assets/images/favicon.png" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
 <body>
-  <div class="container-scroller">
+    <div class="container-scroller">
 
-    <!-- sidebar -->
+        <!-- sidebar -->
     <?php
-$currentPage = 'dashboard';
+$currentPage = 'new-appointment';
 include 'sidebar.php';
 ?>
     <!-- sidebar -->
 
-    <div class="container-fluid page-body-wrapper">
+        <div class="container-fluid page-body-wrapper">
 
-     <!-- navbar -->
+            <!-- navbar -->
       <?php include 'navbar.php';?>
       <!-- navbar -->
 
-      <div class="main-panel">
-        <div class="content-wrapper">
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="page-header">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Appointments</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">New</li>
+                            </ol>
+                        </nav>
+                    </div>
 
 
 
+                    <!-- Input form -->
+                    <div class="col-12 grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">New Appointment</h4>
+                                <form class="form-sample" action="../api/createAppointment.php" method="POST">
 
-          <!-- Table -->
-          <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                </p>
-                <div class="table-responsive">
-                  <table id="appointmentsTable" class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th width="10"> # </th>
-                        <th width="10"> Doctor </th>
-                        <th width="10"> Date </th>
-                        <th width="10"> Description </th>
-                        <th width="10"> Status </th>
-
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                    <?php
-require_once '../api/getLists.php';
-
-while ($row = mysqli_fetch_array($appointments_user)):
-    $appointment_status = $row['appointment_status'];
+                                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Doctor</label>
+                                                <div class="col-sm-9">
+                                                    <select name="doctor_id" required class="form-control">
+<?php
+include '../api/getLists.php';
+if ($doctors):
+    while ($row = mysqli_fetch_array($doctors)):
     ?>
-				                      <tr>
-				                        <td> <?php echo $row['appointment_id'] ?> </td>
-				                        <td> <?php echo $row['full_name'] ?> </td>
-				                        <td> <?php echo $row['date'] ?> </td>
-                                <td> <?php echo $row['description'] ?> </td>
-
-
-
-	                              <td>
-	                              <label class="badge
-	                              <?php
-    if ($appointment_status == 'PENDING') {echo 'badge-warning';} elseif ($appointment_status == 'ACCEPTED') {echo 'badge-success';} elseif ($appointment_status == 'COMPLETED') {echo 'badge-info';} elseif ($appointment_status == 'REJECTED') {echo 'badge-danger';}
-
-?>">
-	                            <?php echo $row['appointment_status'] ?>
-	                            </label>
-                              </td>
-
-				                      
-
-                      </tr>
-
-                      <?php
+											        <option value="<?php echo $row['user_id']; ?>"> <?php echo $row['full_name']; ?></option>
+<?php
 endwhile;
+endif;
 ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                    </tbody>
-                  </table>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Date</label>
+                                                <div class="col-sm-9">
+                                                    <input type="date" name="date" required class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Description</label>
+                                                <div class="col-sm-9">
+                                                <textarea name="description" required placeholder="Start typing..." class="form-control" cols="30" rows="10"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                    <button type="submit" name="btnNewAppointment" class="btn btn-success btn-block mr-2">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-              </div>
-            </div>
-          </div>
+                <!-- content-wrapper ends -->
 
-        </div>
-        <!-- content-wrapper ends -->
-
-        <?php
+                <?php
 if (@$_SESSION['success'] == true) {
     $success = $_SESSION['success'];
     ?>
@@ -165,38 +177,32 @@ unset($_SESSION['missing']);
 }
 ?>
 
-        <!-- footer -->
+                <!-- footer -->
         <?php include '../footer.php';?>
         <!-- footer -->
 
-      </div>
-      <!-- main-panel ends -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
-  <!-- plugins:js -->
-  <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
-  <!-- inject:js -->
-  <script src="../assets/js/off-canvas.js"></script>
-  <script src="../assets/js/hoverable-collapse.js"></script>
-  <script src="../assets/js/misc.js"></script>
-  <script src="../assets/js/settings.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page -->
-  <script src="../assets/js/dashboard.js"></script>
-  <!-- End custom js for this page -->
-
-  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-
-  <script>
-    $(document).ready(function() {
-      $('#appointmentsTable').DataTable({
-        "lengthMenu": [5, 10],
-      });
-    });
-  </script>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="../assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+    <script src="../assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../assets/js/off-canvas.js"></script>
+    <script src="../assets/js/hoverable-collapse.js"></script>
+    <script src="../assets/js/misc.js"></script>
+    <script src="../assets/js/settings.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="../assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
 </body>
 
 </html>

@@ -21,24 +21,66 @@
     </li>
 
     <li class="nav-item nav-category">
-      <span class="nav-link">Navigation</span>
-    </li>
-
-    <li class="nav-item menu-items <?php if ($currentPage == 'dashboard') {echo 'active';}?>">
-      <a class="nav-link" href="index.php">
-        <span class="menu-icon">
-          <i class="mdi mdi-speedometer"></i>
-        </span>
-        <span class="menu-title">Dashboard</span>
-      </a>
+      <span class="nav-link">Appointments</span>
     </li>
 
     <li class="nav-item menu-items <?php if ($currentPage == 'new-appointment') {echo 'active';}?>">
-      <a class="nav-link" href="new-appointment.php">
+      <a class="nav-link" href="index.php">
         <span class="menu-icon">
           <i class="mdi mdi-calendar-plus"></i>
         </span>
-        <span class="menu-title">New Appointment</span>
+        <span class="menu-title">New</span>
+      </a>
+    </li>
+
+    <li class="nav-item menu-items <?php if ($currentPage == 'pending-appointments') {echo 'active';}?>">
+      <a class="nav-link" href="pending-appointments.php">
+        <span class="menu-icon">
+          <i class="mdi mdi-calendar-text"></i>
+        </span>
+        <span class="menu-title">Pending</span>
+      </a>
+    </li>
+
+    <li class="nav-item menu-items <?php if ($currentPage == 'rejected-appointments') {echo 'active';}?>">
+      <a class="nav-link" href="rejected-appointments.php">
+        <span class="menu-icon">
+          <i class="mdi mdi-calendar-remove"></i>
+        </span>
+        <span class="menu-title">Rejected</span>
+      </a>
+    </li>
+
+    <li class="nav-item menu-items <?php if ($currentPage == 'completed-appointments') {echo 'active';}?>">
+      <a class="nav-link" href="completed-appointments.php">
+        <span class="menu-icon">
+          <i class="mdi mdi-calendar-check"></i>
+        </span>
+        <span class="menu-title">Completed</span>
+      </a>
+    </li>
+
+    <div class="dropdown-divider"></div>
+
+    <li class="nav-item nav-category">
+      <span class="nav-link">Lab Tests</span>
+    </li>
+
+    <li class="nav-item menu-items <?php if ($currentPage == 'new-test') {echo 'active';}?>">
+      <a class="nav-link" href="new-test.php">
+        <span class="menu-icon">
+          <i class="mdi mdi-calendar-plus"></i>
+        </span>
+        <span class="menu-title">New</span>
+      </a>
+    </li>
+
+    <li class="nav-item menu-items <?php if ($currentPage == 'completed-tests') {echo 'active';}?>">
+      <a class="nav-link" href="completed-tests.php">
+        <span class="menu-icon">
+          <i class="mdi mdi-calendar-plus"></i>
+        </span>
+        <span class="menu-title">Completed</span>
       </a>
     </li>
 
