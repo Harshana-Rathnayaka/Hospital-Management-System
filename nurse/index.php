@@ -126,6 +126,10 @@ while ($row = mysqli_fetch_array($pending_prescriptions)):
 
 			                                <input name="prescription_id" type="hidden" value="<?php echo $row['prescription_id'] ?>">
 
+			                                <input class="patientPrescription" type="hidden" value="<?php echo $row['prescription'] ?>">
+			                                <input class="patientAddress" type="hidden" value="<?php echo $row['address'] ?>">
+
+
 			                            <button type="button" class="btn btnViewPrescription btn-outline-info btn-sm"> <i class="mdi mdi-eye"></i> </button>
 			                            <button type="submit" name="btnShipPrescription" class="btn btn-outline-success btn-sm"><i class="mdi mdi-send"></i></button>
 
@@ -230,18 +234,22 @@ unset($_SESSION['missing']);
       $('#viewPrescriptionForm').modal('show');
 
       $tr = $(this).closest('tr');
+      $form = $(this).closest('form');
 
       var data = $tr.children('td').map(function() {
         return $(this).text();
       }).get();
 
-      var id = $('#patientID').val();
+      var additionalInfo = $form.children('input').map(function() {
+        return $(this).val();
+      }).get();
 
       console.log(data);
+      console.log(additionalInfo);
 
       $('#patient').val(data[1]);
-      $('#prescription').val(data[2]);
-      $('#address').val(data[2]);
+      $('#prescription').val(additionalInfo[1]);
+      $('#address').val(additionalInfo[2]);
 
     });
   </script>
