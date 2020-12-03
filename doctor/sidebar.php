@@ -24,12 +24,12 @@
       <span class="nav-link">Appointments</span>
     </li>
 
-    <li class="nav-item menu-items <?php if ($currentPage == 'all-appointments') {echo 'active';}?>">
+    <li class="nav-item menu-items <?php if ($currentPage == 'ongoing-appointments') {echo 'active';}?>">
       <a class="nav-link" href="index.php">
         <span class="menu-icon">
           <i class="mdi mdi-calendar-text"></i>
         </span>
-        <span class="menu-title">All Time</span>
+        <span class="menu-title">Ongoing</span>
       </a>
     </li>
 

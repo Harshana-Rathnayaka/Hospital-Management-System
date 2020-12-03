@@ -44,7 +44,7 @@ if (!isset($_SESSION['username'])) {
 
     <!-- sidebar -->
     <?php
-$currentPage = 'all-appointments';
+$currentPage = 'ongoing-appointments';
 include 'sidebar.php';
 ?>
     <!-- sidebar -->
