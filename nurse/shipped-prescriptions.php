@@ -69,11 +69,9 @@ include 'sidebar.php';
                     <thead>
                       <tr>
                         <th width="10"> # </th>
-                        <th> Name </th>
-                        <th width="10"> Username </th>
-                        <th> Email </th>
-                        <th width="10"> Contact </th>
-                        <th width="10"> Type </th>
+                        <th> Patient </th>
+                        <th> Prescription </th>
+                        <th width="10"> Action </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -81,28 +79,17 @@ include 'sidebar.php';
                     <?php
 require_once '../api/getLists.php';
 
-while ($row = mysqli_fetch_array($users_admin)):
+while ($row = mysqli_fetch_array($shipped_prescriptions)):
     $user_type = $row['user_type'];
     ?>
 			                      <tr>
-			                        <td> <?php echo $row['user_id'] ?> </td>
+			                        <td> <?php echo $row['prescription_id'] ?> </td>
 			                        <td> <?php echo $row['full_name'] ?> </td>
-			                        <td> <?php echo $row['username'] ?> </td>
-			                        <td> <?php echo $row['email'] ?> </td>
-			                        <td> <?php echo $row['contact'] ?> </td>
+			                        <td> <?php echo $row['prescription'] ?> </td>
 			                       
    
                               <td> 
-                              <label class="badge 
-                              <?php 
-                              if ($user_type == 'DOCTOR') {echo 'badge-primary';} 
-                              elseif ($user_type == 'NURSE') {echo 'badge-danger';} 
-                              elseif ($user_type == 'STAFF') {echo 'badge-info';} 
-                              elseif ($user_type == 'PATIENT') {echo 'badge-success';} 
-
-                              ?>">
-	                            <?php echo $row['user_type'] ?>
-	                            </label>
+                              
                               </td>
 
                       </tr>

@@ -48,6 +48,11 @@ if (isset($_SESSION['user_id'])) {
     $rejected_appointments_doctor = $db->getRejectedAppointmentsByDoctor($user_id);
     $completed_appointments_doctor = $db->getCompletedAppointmentsByDoctor($user_id);
 
+    // lists for nurse
+    $pending_prescriptions = $db->getPendingPrescriptions();
+    $shipped_prescriptions = $db->getShippedPrescriptions();
+    $completed_prescriptions = $db->getCompletedPrescriptions();
+
 } else {
     $_SESSION['error'] = "Session timed out. Please login to continue.";
     $response['error'] = true;
