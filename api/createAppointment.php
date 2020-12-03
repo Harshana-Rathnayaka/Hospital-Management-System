@@ -31,7 +31,7 @@ if (isset($_POST['btnNewAppointment'])) {
             $_SESSION['success'] = "Appointment request submitted successfully!";
             $response['error'] = false;
             $response['message'] = "Appointment request submitted successfully";
-            header("location:../patient/new-appointment.php");
+            header("location:../patient/index.php");
 
         } elseif ($result == 1) {
 
@@ -39,7 +39,7 @@ if (isset($_POST['btnNewAppointment'])) {
             $_SESSION['error'] = "Something went wrong, please try again!";
             $response['error'] = true;
             $response['message'] = "Some error occured, please try again";
-            header("location:../patient/new-appointment.php");
+            header("location:../patient/index.php");
 
         }
     } else {
@@ -48,7 +48,7 @@ if (isset($_POST['btnNewAppointment'])) {
         $_SESSION['missing'] = "Required fields are missing.";
         $response['error'] = true;
         $response['message'] = "Required fields are missing";
-        header("location:../patient/new-appointment.php");
+        header("location:../patient/index.php");
 
     }
 
@@ -58,7 +58,7 @@ if (isset($_POST['btnNewAppointment'])) {
     $_SESSION['missing'] = "Wrong button click.";
     $response['error'] = true;
     $response['message'] = "Wrong button click";
-    header("location:../patient/new-appointment.php");
+    header("location:../patient/index.php");
 
 }
 
