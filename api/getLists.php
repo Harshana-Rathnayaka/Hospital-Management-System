@@ -43,7 +43,7 @@ if (isset($_SESSION['user_id'])) {
     $appointments_user = $db->getAppointmentsByUser($user_id);
 
     // lists for doctor
-    $all_appointments_doctor = $db->getAllAppointmentsByDoctor($user_id);
+    $ongoing_appointments_doctor = $db->getOngoingAppointmentsByDoctor($user_id);
     $pending_appointments_doctor = $db->getPendingAppointmentsByDoctor($user_id);
     $rejected_appointments_doctor = $db->getRejectedAppointmentsByDoctor($user_id);
     $completed_appointments_doctor = $db->getCompletedAppointmentsByDoctor($user_id);

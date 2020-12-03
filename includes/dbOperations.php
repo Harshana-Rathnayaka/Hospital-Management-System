@@ -311,9 +311,9 @@ class DbOperations
     }
 
     // getting all appointments table to the doctor
-    public function getAllAppointmentsByDoctor($user_id)
+    public function getOngoingAppointmentsByDoctor($user_id)
     {
-        $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.patient_id WHERE `doctor_id` = ?");
+        $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.patient_id WHERE `doctor_id` = ? AND `appointment_status` = 'ACCEPTED'");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         return $stmt->get_result();
