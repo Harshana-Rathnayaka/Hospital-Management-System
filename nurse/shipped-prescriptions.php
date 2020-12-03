@@ -59,19 +59,52 @@ include 'sidebar.php';
         <div class="content-wrapper">
 
 
+         <!-- update prescription location modal -->
+         <div class="modal fade" id="updatePrescriptionLocationForm" tabindex="-1" role="dialog"
+            aria-labelledby="updatePrescriptionLocationFormTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="updatePrescriptionLocationFormTitle">Update Location</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <form action="../api/updateLocation.php" method="POST">
+
+                    <input name="prescription_id" id="prescription_id" type="hidden">
+
+                      <div class="form-group">
+                        <label>Location</label>
+                        <textarea name="prescription_location" id="prescription_location" required placeholder="Start typing..." class="form-control" cols="30" rows="10"></textarea>
+                        <small class="text-success">This is the current location of the delivery</small>
+                      </div>
+
+                      <button type="submit" name="btnUpdateLocation" class="btn btn-block btn-primary">Save</button>
+
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           <!-- Table -->
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
                 </p>
                 <div class="table-responsive">
-                  <table id="usersTable" class="table table-bordered">
+                  <table id="usersTable" class="table table-sm table-bordered">
                     <thead>
                       <tr>
-                        <th width="10"> # </th>
-                        <th> Patient </th>
-                        <th> Prescription </th>
-                        <th width="10"> Action </th>
+                        <th width="25%"> # </th>
+                        <th width="25%"> Prescription </th>
+                        <th width="25%"> Location </th>
+                        <th width="25%"> Action </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -82,19 +115,19 @@ require_once '../api/getLists.php';
 while ($row = mysqli_fetch_array($shipped_prescriptions)):
     $user_type = $row['user_type'];
     ?>
-			                      <tr>
-			                        <td> <?php echo $row['prescription_id'] ?> </td>
-			                        <td> <?php echo $row['full_name'] ?> </td>
-			                        <td> <?php echo $row['prescription'] ?> </td>
-			                       
-   
-                              <td> 
-                              
-                              </td>
+						                      <tr>
+						                        <td> <?php echo $row['prescription_id'] ?> </td>
+						                        <td> <?php echo $row['prescription'] ?> </td>
+						                        <td> <?php echo $row['prescription_location'] ?> </td>
 
-                      </tr>
+			                                    <td>
+						                        <button type="button" class="btn btnUpdatePresLocation btn-outline-primary btn-sm">
+				                                <i class="mdi mdi-pencil-box"></i></button>
+						                        </td>
 
-                      <?php
+			                      </tr>
+
+			                      <?php
 endwhile;
 ?>
 
@@ -182,6 +215,27 @@ unset($_SESSION['missing']);
         "lengthMenu": [5, 10],
       });
     });
+  </script>
+
+
+  <!-- open update prescription location modal on button click -->
+<script>
+    $('.btnUpdatePresLocation').on('click', function() {
+
+      $('#updatePrescriptionLocationForm').modal('show');
+
+      $tr = $(this).closest('tr');
+
+      var data = $tr.children('td').map(function() {
+        return $(this).text();
+      }).get();
+
+      console.log(data);
+
+      $('#prescription_id').val(data[0]);
+      $('#prescription_location').val(data[2]);
+
+    });prescription_location
   </script>
 </body>
 

@@ -484,6 +484,21 @@ class DbOperations
         }
     }
 
+    // update prescription location
+    public function updateLocation($prescription_id, $prescription_location)
+    {
+        $stmt = $this->con->prepare("UPDATE `prescriptions` SET `prescription_location` = ? WHERE `prescription_id` = ?");
+        $stmt->bind_param("si", $prescription_location, $prescription_id);
+
+        if ($stmt->execute()) {
+            // prescription shipped
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
     // activate or deactivate user account by updating user status from admin side
     public function updateUserStatus($user_id, $status)
     {
