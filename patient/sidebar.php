@@ -84,5 +84,20 @@
       </a>
     </li>
 
+    <div class="dropdown-divider"></div>
+
+    <li class="nav-item nav-category">
+      <span class="nav-link">Prescriptions</span>
+    </li>
+
+    <li class="nav-item menu-items <?php if ($currentPage == 'incoming-prescriptions') {echo 'active';}?>">
+      <a class="nav-link" href="incoming-prescriptions.php">
+        <span class="menu-icon">
+          <i class="mdi mdi-briefcase"></i>
+        </span>
+        <span class="menu-title">Incoming</span>
+      </a>
+    </li>
+
   </ul>
 </nav>
