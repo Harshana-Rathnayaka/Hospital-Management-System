@@ -12,6 +12,7 @@ if (isset($_POST['btnRegisterUser'])) {
         isset($_POST['username']) &&
         isset($_POST['email']) &&
         isset($_POST['contact']) &&
+        isset($_POST['address']) &&
         isset($_POST['password'])
     ) {
 
@@ -19,12 +20,13 @@ if (isset($_POST['btnRegisterUser'])) {
         $username = $_POST['username'];
         $email = $_POST['email'];
         $contact = $_POST['contact'];
+        $address = $_POST['address'];
         $password = $_POST['password'];
 
         // we can operate the data further
         $db = new DbOperations();
 
-        $result = $db->registerUser($full_name, $username, $email, $contact, $password);
+        $result = $db->registerUser($full_name, $username, $email, $contact, $address, $password);
 
         if ($result == 1) {
 

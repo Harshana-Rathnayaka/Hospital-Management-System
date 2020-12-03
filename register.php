@@ -58,6 +58,10 @@ if (isset($_SESSION['username'])) {
                     <input type="text" name="contact" required placeholder="0112364578" class="form-control p_input">
                   </div>
                   <div class="form-group">
+                    <label>Address</label>
+                    <textarea name="address" required placeholder="Desmond road, Kohuwala" class="form-control p_input"></textarea>
+                  </div>
+                  <div class="form-group">
                     <label>Password</label>
                     <input type="password" name="password" required placeholder="......" class="form-control p_input">
                   </div>

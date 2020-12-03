@@ -39,15 +39,15 @@ class DbOperations
     }
 
     // user registration
-    public function registerUser($full_name, $username, $email, $contact, $pass)
+    public function registerUser($full_name, $username, $email, $contact, $address, $pass)
     {
         $password = md5($pass); // password encrypting
         if ($this->isUserExist($username, $email)) {
             // user exists
             return 0;
         } else {
-            $stmt = $this->con->prepare("INSERT INTO `users` (`user_id`, `full_name`, `username`, `email`, `contact`, `password`, `user_type`, `user_status`) VALUES (NULL, ?, ?, ?, ?, ?, 'PATIENT', 'ACTIVE');");
-            $stmt->bind_param("sssss", $full_name, $username, $email, $contact, $password);
+            $stmt = $this->con->prepare("INSERT INTO `users` (`user_id`, `full_name`, `username`, `email`, `contact`, `address`, `password`, `user_type`, `user_status`) VALUES (NULL, ?, ?, ?, ?, ?, ?, 'PATIENT', 'ACTIVE');");
+            $stmt->bind_param("ssssss", $full_name, $username, $email, $contact, $address, $password);
 
             if ($stmt->execute()) {
                 // user registered
