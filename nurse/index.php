@@ -122,7 +122,7 @@ while ($row = mysqli_fetch_array($pending_prescriptions)):
 			                        <td> <?php echo $row['full_name'] ?> </td>
 			                        <td> <label class="badge badge-warning"> <?php echo $row['prescription_status'] ?> </label> </td>
 			                        <td>
-			                                <form action="../api/sendPrescription.php" method="POST">
+			                                <form action="../api/shipPrescription.php" method="POST">
 
 			                                <input name="prescription_id" type="hidden" value="<?php echo $row['prescription_id'] ?>">
 

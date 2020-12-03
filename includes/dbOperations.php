@@ -365,6 +365,33 @@ class DbOperations
 
     }
 
+    // getting pending prescriptions to the nurse
+    public function getPendingPrescriptions()
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `prescriptions` INNER JOIN `users` ON users.user_id = prescriptions.patient_id WHERE `prescription_status` = 'PENDING'");
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
+    // getting shipped prescriptions to the nurse
+    public function getShippedPrescriptions()
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `prescriptions` INNER JOIN `users` ON users.user_id = prescriptions.patient_id WHERE `prescription_status` = 'SHIPPED'");
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
+    // getting completed prescriptions to the nurse
+    public function getCompletedPrescriptions()
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `prescriptions` INNER JOIN `users` ON users.user_id = prescriptions.patient_id WHERE `prescription_status` = 'RECEIVED'");
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
     // getting the orders count by user
     public function getOrdersCountByUserId($user_id)
     {
@@ -435,6 +462,21 @@ class DbOperations
 
         if ($stmt->execute()) {
             // appointment completed
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
+    // mark a prescription as shipped
+    public function shipPrescription($prescription_id)
+    {
+        $stmt = $this->con->prepare("UPDATE `prescriptions` SET `prescription_status` = 'SHIPPED', `prescription_location` = 'Dispatched from the Hospital' WHERE `prescription_id` = ?");
+        $stmt->bind_param("i", $prescription_id);
+
+        if ($stmt->execute()) {
+            // prescription shipped
             return 0;
         } else {
             // some error
