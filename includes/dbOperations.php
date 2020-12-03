@@ -499,6 +499,21 @@ class DbOperations
         }
     }
 
+    // deleting the prescription by changing the status. Not really deleting.
+    public function deletePrescription($prescription_id)
+    {
+        $stmt = $this->con->prepare("UPDATE `prescriptions` SET `prescription_status` = 'COMPLETED' WHERE `prescription_id` = ?");
+        $stmt->bind_param("i", $prescription_id);
+
+        if ($stmt->execute()) {
+            // prescription deleted (status marked as completed)
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
     // activate or deactivate user account by updating user status from admin side
     public function updateUserStatus($user_id, $status)
     {

@@ -67,12 +67,10 @@ include 'sidebar.php';
                   <table id="usersTable" class="table table-bordered">
                     <thead>
                       <tr>
-                        <th width="10"> # </th>
-                        <th> Name </th>
-                        <th width="10"> Username </th>
-                        <th> Email </th>
-                        <th width="10"> Contact </th>
-                        <th width="10"> Type </th>
+                        <th> Patient </th>
+                        <th width="10"> Prescription </th>
+                        <th> Status </th>
+                        <th width="10"> Action </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -80,29 +78,19 @@ include 'sidebar.php';
                     <?php
 require_once '../api/getLists.php';
 
-while ($row = mysqli_fetch_array($users_admin)):
-    $user_type = $row['user_type'];
-    ?>
+while ($row = mysqli_fetch_array($completed_prescriptions)):
+?>
 			                      <tr>
-			                        <td> <?php echo $row['user_id'] ?> </td>
 			                        <td> <?php echo $row['full_name'] ?> </td>
-			                        <td> <?php echo $row['username'] ?> </td>
-			                        <td> <?php echo $row['email'] ?> </td>
-			                        <td> <?php echo $row['contact'] ?> </td>
-			                       
-   
-                              <td> 
-                              <label class="badge 
-                              <?php 
-                              if ($user_type == 'DOCTOR') {echo 'badge-primary';} 
-                              elseif ($user_type == 'NURSE') {echo 'badge-danger';} 
-                              elseif ($user_type == 'STAFF') {echo 'badge-info';} 
-                              elseif ($user_type == 'PATIENT') {echo 'badge-success';} 
+			                        <td> <?php echo $row['prescription'] ?> </td>
+			                        <td> <label class="badge badge-success"> <?php echo $row['prescription_status'] ?> </label> </td>
 
-                              ?>">
-	                            <?php echo $row['user_type'] ?>
-	                            </label>
-                              </td>
+                              <td>
+			                          <form action="../api/deletePrescription.php" method="POST">
+			                            <input name="prescription_id" type="hidden" value="<?php echo $row['prescription_id'] ?>">
+			                            <button type="submit" name="btnDeletePrescription" class="btn btn-outline-danger btn-sm"><i class="mdi mdi-delete"></i></button>
+			                          </form>
+			                        </td>
 
                       </tr>
 
