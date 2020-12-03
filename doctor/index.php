@@ -94,7 +94,7 @@ include 'sidebar.php';
                       </div>
 
                       <button type="submit" name="btnAddPrescription" class="btn btn-block btn-primary">Save</button>
-                      
+
                     </form>
 
                   </div>
@@ -128,16 +128,16 @@ require_once '../api/getLists.php';
 while ($row = mysqli_fetch_array($ongoing_appointments_doctor)):
     $appointment_status = $row['appointment_status'];
     ?>
-						                      <tr>
-						                        <td> <?php echo $row['appointment_id'] ?> </td>
-						                        <td> <?php echo $row['full_name'] ?> </td>
-						                        <td> <?php echo $row['date'] ?> </td>
-						                        <td> <?php echo $row['description'] ?> </td>
+								                      <tr>
+								                        <td> <?php echo $row['appointment_id'] ?> </td>
+								                        <td> <?php echo $row['full_name'] ?> </td>
+								                        <td> <?php echo $row['date'] ?> </td>
+								                        <td> <?php echo $row['description'] ?> </td>
 
 
-			                              <td>
-			                              <label class="badge
-			                              <?php
+					                              <td>
+					                              <label class="badge
+					                              <?php
     if ($appointment_status == 'PENDING') {echo 'badge-warning';} elseif ($appointment_status == 'ACCEPTED') {echo 'badge-success';} elseif ($appointment_status == 'COMPLETED') {echo 'badge-primary';} elseif ($appointment_status == 'REJECTED') {echo 'badge-danger';}
 
 ?>">
@@ -145,8 +145,10 @@ while ($row = mysqli_fetch_array($ongoing_appointments_doctor)):
 	                            </label>
                               </td>
                               <td>
-                    <input value=" <?php echo $row['patient_id'] ?> " name="patient_id" id="patientID" type="hidden">
-                              <button type="submit" class="btnCompleteAppointment btn btn-icon-text btn-outline-primary btn-sm"><i class="mdi mdi-file-check btn-icon-prepend"></i> Done </button>
+                              <form>
+                    <input value="<?php echo $row['patient_id'] ?>" type="hidden">
+                    <button type="button" class="btnCompleteAppointment btn btn-icon-text btn-outline-primary btn-sm"><i class="mdi mdi-file-check btn-icon-prepend"></i> Done </button>
+                              </form>
                               </td>
                       </tr>
 
@@ -246,19 +248,22 @@ unset($_SESSION['missing']);
 
       $('#uploadPrescriptionForm').modal('show');
 
-     var id = $('#patientID').val();
       $tr = $(this).closest('tr');
+      $form = $(this).closest('form');
 
       var data = $tr.children('td').map(function() {
         return $(this).text();
       }).get();
 
+      var additionalInfo = $form.children('input').map(function() {
+        return $(this).val();
+      }).get();
 
       console.log(data);
-      console.log(id);
+      console.log(additionalInfo);
 
       $('#appointment_id').val(data[0]);
-      $('#patient_id').val(id);
+      $('#patient_id').val(additionalInfo[0]);
 
     });
   </script>
