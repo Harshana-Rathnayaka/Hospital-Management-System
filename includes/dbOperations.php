@@ -540,14 +540,14 @@ class DbOperations
         }
     }
 
-        // mark a prescription as shipped
+        // mark a prescription as received
         public function markAsReceived($prescription_id)
         {
             $stmt = $this->con->prepare("UPDATE `prescriptions` SET `prescription_status` = 'RECEIVED' WHERE `prescription_id` = ?");
             $stmt->bind_param("i", $prescription_id);
     
             if ($stmt->execute()) {
-                // prescription shipped
+                // prescription received
                 return 0;
             } else {
                 // some error
