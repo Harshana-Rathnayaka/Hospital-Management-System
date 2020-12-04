@@ -70,30 +70,30 @@ include 'sidebar.php';
                     </div>
 
 
-         <!-- Accept appointment modal -->
-         <div class="modal fade" id="acceptLabTestForm" tabindex="-1" role="dialog"
-            aria-labelledby="acceptLabTestFormTitle" aria-hidden="true">
+         <!-- Upload lab report modal -->
+         <div class="modal fade" id="uploadLabReportForm" tabindex="-1" role="dialog"
+            aria-labelledby="uploadLabReportFormTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="acceptLabTestFormTitle">Reject Appointment</h5>
+                    <h5 class="modal-title" id="uploadLabReportFormTitle">Upload the Lab Report</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true" class="text-danger">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
 
-                    <form action="../api/acceptLabTest.php" method="POST">
+                    <form action="../api/uploadLabReport.php" method="POST" enctype="multipart/form-data">
 
                     <input name="lab_test_id" id="lab_test_id" type="hidden">
 
                       <div class="form-group">
                         <label>Date</label>
-                        <input type="date" name="date" required class="form-control" />
-                        <small class="text-success">Please select a date for this lab test</small>
+                        <input type="file" name="lab_report" required class="form-control" />
+                        <small class="text-success">Please select the lab test report (PDF only)</small>
                       </div>
 
-                      <button type="submit" name="btnAcceptLabTest" class="btn btn-block btn-primary">Save</button>
+                      <button type="submit" name="btnUploadReport" class="btn btn-block btn-primary">Save</button>
 
                     </form>
 
@@ -133,7 +133,7 @@ while ($row = mysqli_fetch_array($ongoing_lab_tests_staff)):
 			                        <td> <label class="badge badge-success"> <?php echo $row['test_status'] ?> </label> </td>
 			                        <td>
 			                                <form>
-			                            <button type="button" class="btn btnAccept btn-outline-primary btn-sm"><i class="mdi mdi-folder-upload"></i></button>
+			                            <button type="button" class="btn btnUpload btn-outline-primary btn-sm"><i class="mdi mdi-folder-upload"></i></button>
 			                                </form>
 			                                </td>
 
@@ -232,9 +232,9 @@ unset($_SESSION['missing']);
 
   <!-- open accept lab test modal on button click -->
 <script>
-    $('.btnAccept').on('click', function() {
+    $('.btnUpload').on('click', function() {
 
-      $('#acceptLabTestForm').modal('show');
+      $('#uploadLabReportForm').modal('show');
 
       $tr = $(this).closest('tr');
 

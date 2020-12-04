@@ -115,6 +115,21 @@ class DbOperations
         }
     }
 
+    // uploading lab report by doctor
+    public function uploadTheLabReport($lab_test_id, $report_link)
+    {
+        $stmt = $this->con->prepare("INSERT INTO `lab_reports` (`report_id`, `lab_test_id`, `file_location`) VALUES (NULL, ?, ?);");
+        $stmt->bind_param("is", $lab_test_id, $report_link);
+
+        if ($stmt->execute()) {
+            // report uploaded
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
     // adding to wishlist
     public function addToWishlist($user_id, $vehicle_id, $make_id, $quantity)
     {
@@ -561,6 +576,21 @@ class DbOperations
 
         if ($stmt->execute()) {
             // appointment completed
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
+    // mark lab test as complete by staff
+    public function completeLabReport($lab_test_id)
+    {
+        $stmt = $this->con->prepare("UPDATE `lab_tests` SET `test_status` = 'COMPLETED' WHERE `test_id` = ?");
+        $stmt->bind_param("i", $lab_test_id);
+
+        if ($stmt->execute()) {
+            // lab test completed
             return 0;
         } else {
             // some error
