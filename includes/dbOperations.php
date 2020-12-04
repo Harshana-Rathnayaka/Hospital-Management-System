@@ -514,6 +514,21 @@ class DbOperations
         }
     }
 
+    // accept a lab test by staff
+    public function acceptLabTest($lab_test_id, $date)
+    {
+        $stmt = $this->con->prepare("UPDATE `lab_tests` SET `test_status` = 'ACCEPTED', `date` = ? WHERE `test_id` = ?");
+        $stmt->bind_param("si", $date, $lab_test_id);
+
+        if ($stmt->execute()) {
+            // lab test accepted
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
     // reject an appointment by doctor
     public function rejectAppointment($appointment_id, $comment)
     {

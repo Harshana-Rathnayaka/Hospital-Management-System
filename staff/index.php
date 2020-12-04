@@ -59,6 +59,39 @@ include 'sidebar.php';
         <div class="content-wrapper">
 
 
+         <!-- Accept appointment modal -->
+         <div class="modal fade" id="acceptLabTestForm" tabindex="-1" role="dialog"
+            aria-labelledby="acceptLabTestFormTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="acceptLabTestFormTitle">Reject Appointment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" class="text-danger">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <form action="../api/acceptLabTest.php" method="POST">
+
+                    <input name="lab_test_id" id="lab_test_id" type="hidden">
+
+                      <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" name="date" required class="form-control" />
+                        <small class="text-success">Please select a date for this lab test</small>
+                      </div>
+
+                      <button type="submit" name="btnAcceptLabTest" class="btn btn-block btn-primary">Save</button>
+
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           <!-- Table -->
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
@@ -81,13 +114,18 @@ include 'sidebar.php';
 require_once '../api/getLists.php';
 
 while ($row = mysqli_fetch_array($pending_lab_tests_staff)):
-    ?>
+?>
 			                      <tr>
 			                        <td> <?php echo $row['test_id'] ?> </td>
 			                        <td> <?php echo $row['full_name'] ?> </td>
 			                        <td> <?php echo $row['details'] ?> </td>
 			                        <td> <label class="badge badge-warning"> <?php echo $row['test_status'] ?> </label> </td>
-			                        <td> </td>
+			                        <td>
+			                                <form>
+			                            <button type="button" class="btn btnAccept btn-outline-success btn-sm"><i class="mdi mdi-check"></i></button>
+			                                </form>
+			                                </td>
+
                             </tr>
 
                       <?php
@@ -177,6 +215,26 @@ unset($_SESSION['missing']);
       $('#usersTable').DataTable({
         "lengthMenu": [5, 10],
       });
+    });
+  </script>
+
+
+  <!-- open accept lab test modal on button click -->
+<script>
+    $('.btnAccept').on('click', function() {
+
+      $('#acceptLabTestForm').modal('show');
+
+      $tr = $(this).closest('tr');
+
+      var data = $tr.children('td').map(function() {
+        return $(this).text();
+      }).get();
+
+      console.log(data);
+
+      $('#lab_test_id').val(data[0]);
+
     });
   </script>
 </body>
