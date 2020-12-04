@@ -70,6 +70,38 @@ include 'sidebar.php';
             </div>
 
 
+            <!-- view prescription modal -->
+        <div class="modal fade" id="viewDetailsForm" tabindex="-1" role="dialog"
+            aria-labelledby="viewDetailsFormTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="viewDetailsFormTitle">Prescription Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" class="text-danger">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <form>
+
+                    <input type="hidden" id="appointment_id" name="appointment_id">
+
+                      <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="description" name="description" class="form-control bg-dark text-light" cols="30" rows="10"></textarea>
+                      </div>
+
+                      <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-block btn-secondary">Close</button>
+
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
 
 
           <!-- Table -->
@@ -86,7 +118,7 @@ include 'sidebar.php';
                         <th width="10"> Date </th>
                         <th width="10"> Description </th>
                         <th width="10"> Status </th>
-
+                        <th width="10"> Action </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -94,30 +126,20 @@ include 'sidebar.php';
                     <?php
 require_once '../api/getLists.php';
 
-while ($row = mysqli_fetch_array($appointments_user)):
-    $appointment_status = $row['appointment_status'];
-    ?>
+while ($row = mysqli_fetch_array($pending_appointments_user)):
+?>
 				                      <tr>
 				                        <td> <?php echo $row['appointment_id'] ?> </td>
 				                        <td> <?php echo $row['full_name'] ?> </td>
 				                        <td> <?php echo $row['date'] ?> </td>
                                 <td> <?php echo $row['description'] ?> </td>
-
-
-
 	                              <td>
-	                              <label class="badge
-	                              <?php
-    if ($appointment_status == 'PENDING') {echo 'badge-warning';} elseif ($appointment_status == 'ACCEPTED') {echo 'badge-success';} elseif ($appointment_status == 'COMPLETED') {echo 'badge-info';} elseif ($appointment_status == 'REJECTED') {echo 'badge-danger';}
-
-?>">
-	                            <?php echo $row['appointment_status'] ?>
-	                            </label>
-                              </td>
-
-				                      
-
-                      </tr>
+	                              <label class="badge badge-warning"> <?php echo $row['appointment_status'] ?>  </label>
+                                </td>
+                                <td>
+			                            <button type="button" class="btn btnViewDetails btn-outline-info btn-sm"> <i class="mdi mdi-pencil-box"></i> </button>
+                                </td>
+                              </tr>
 
                       <?php
 endwhile;
@@ -206,6 +228,27 @@ unset($_SESSION['missing']);
       $('#appointmentsTable').DataTable({
         "lengthMenu": [5, 10],
       });
+    });
+  </script>
+
+  <!-- view details modal on button click -->
+<script>
+    $('.btnViewDetails').on('click', function() {
+
+      $('#viewDetailsForm').modal('show');
+
+      $tr = $(this).closest('tr');
+     
+      var data = $tr.children('td').map(function() {
+        return $(this).text();
+      }).get();
+
+
+      console.log(data);
+
+      $('#appointment_id').val(data[0]);
+      $('#description').val(data[3]);
+
     });
   </script>
 </body>
