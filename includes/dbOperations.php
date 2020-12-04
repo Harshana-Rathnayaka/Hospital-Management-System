@@ -88,7 +88,7 @@ class DbOperations
     // create new lab test request by user
     public function requestALabTest($user_id, $details)
     {
-        $stmt = $this->con->prepare("INSERT INTO `lab_tests` (`test_id`, `user_id`, `details`, `test_status`) VALUES (NULL, ?, ?, 'PENDING');");
+        $stmt = $this->con->prepare("INSERT INTO `lab_tests` (`test_id`, `patient_id`, `details`, `test_status`) VALUES (NULL, ?, ?, 'PENDING');");
         $stmt->bind_param("is", $user_id, $details);
 
         if ($stmt->execute()) {
@@ -375,6 +375,16 @@ class DbOperations
     public function getIncomingPrescriptionsByUser($user_id)
     {
         $stmt = $this->con->prepare("SELECT * FROM `prescriptions` WHERE `patient_id` = ? AND `prescription_status` = 'SHIPPED'");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
+    // getting the completed lab tests table to the user
+    public function getCompletedLabTestsByUser($user_id)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `lab_tests` WHERE `patient_id` = ? AND `test_status` = 'COMPLETED'");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         return $stmt->get_result();
