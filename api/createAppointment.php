@@ -10,20 +10,18 @@ if (isset($_POST['btnNewAppointment'])) {
     if (
         isset($_POST['user_id']) &&
         isset($_POST['doctor_id']) &&
-        isset($_POST['date']) &&
         isset($_POST['description'])
 
     ) {
 
         $user_id = $_POST['user_id'];
         $doctor_id = $_POST['doctor_id'];
-        $date = trim($_POST['date']);
         $description = trim($_POST['description']);
 
         // we can operate the data further
         $db = new DbOperations();
 
-        $result = $db->createAppointment($user_id, $doctor_id, $date, $description);
+        $result = $db->createAppointment($user_id, $doctor_id, $description);
 
         if ($result == 0) {
 

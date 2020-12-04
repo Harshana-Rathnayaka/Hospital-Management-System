@@ -71,10 +71,10 @@ class DbOperations
     }
 
     // create new appointment by user
-    public function createAppointment($user_id, $doctor_id, $date, $description)
+    public function createAppointment($user_id, $doctor_id, $description)
     {
-        $stmt = $this->con->prepare("INSERT INTO `appointments` (`appointment_id`, `patient_id`, `doctor_id`, `description`, `date`, `appointment_status`) VALUES (NULL, ?, ?, ?, ?, 'PENDING');");
-        $stmt->bind_param("iiss", $user_id, $doctor_id, $description, $date);
+        $stmt = $this->con->prepare("INSERT INTO `appointments` (`appointment_id`, `patient_id`, `doctor_id`, `description`, `appointment_status`) VALUES (NULL, ?, ?, ?, 'PENDING');");
+        $stmt->bind_param("iis", $user_id, $doctor_id, $description);
 
         if ($stmt->execute()) {
             // new appointment created

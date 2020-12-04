@@ -98,7 +98,7 @@ endif;
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Date</label>
@@ -107,7 +107,7 @@ endif;
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group row">
