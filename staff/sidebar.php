@@ -21,24 +21,24 @@
     </li>
 
     <li class="nav-item nav-category">
-      <span class="nav-link">Navigation</span>
+      <span class="nav-link">Lab Tests</span>
     </li>
 
-    <li class="nav-item menu-items <?php if ($currentPage == 'dashboard') {echo 'active';}?>">
+    <li class="nav-item menu-items <?php if ($currentPage == 'pending-tests') {echo 'active';}?>">
       <a class="nav-link" href="index.php">
         <span class="menu-icon">
-          <i class="mdi mdi-speedometer"></i>
+          <i class="mdi text-warning mdi-heart-pulse"></i>
         </span>
-        <span class="menu-title">Dashboard</span>
+        <span class="menu-title">Pending</span>
       </a>
     </li>
 
-    <li class="nav-item menu-items <?php if ($currentPage == 'new-user') {echo 'active';}?>">
-      <a class="nav-link" href="new-user.php">
+    <li class="nav-item menu-items <?php if ($currentPage == 'ongoing-tests') {echo 'active';}?>">
+      <a class="nav-link" href="ongoing-tests.php">
         <span class="menu-icon">
-          <i class="mdi mdi-account-plus"></i>
+          <i class="mdi text-success mdi-test-tube"></i>
         </span>
-        <span class="menu-title">New User</span>
+        <span class="menu-title">Ongoing</span>
       </a>
     </li>
 

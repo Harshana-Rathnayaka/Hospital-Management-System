@@ -467,6 +467,15 @@ class DbOperations
 
     }
 
+    // getting ongoing lab tests to the staff
+    public function getOngoingLabTests()
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `lab_tests` INNER JOIN `users` ON users.user_id = lab_tests.patient_id WHERE `test_status` = 'ACCEPTED'");
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
     // getting the orders count by user
     public function getOrdersCountByUserId($user_id)
     {

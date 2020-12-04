@@ -44,7 +44,7 @@ if (!isset($_SESSION['username'])) {
 
     <!-- sidebar -->
     <?php
-$currentPage = 'pending-tests';
+$currentPage = 'ongoing-tests';
 include 'sidebar.php';
 ?>
     <!-- sidebar -->
@@ -64,7 +64,7 @@ include 'sidebar.php';
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Lab Tests</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Pending</li>
+                                <li class="breadcrumb-item active" aria-current="page">Ongoing</li>
                             </ol>
                         </nav>
                     </div>
@@ -124,16 +124,16 @@ include 'sidebar.php';
                     <?php
 require_once '../api/getLists.php';
 
-while ($row = mysqli_fetch_array($pending_lab_tests_staff)):
+while ($row = mysqli_fetch_array($ongoing_lab_tests_staff)):
 ?>
 			                      <tr>
 			                        <td> <?php echo $row['test_id'] ?> </td>
 			                        <td> <?php echo $row['full_name'] ?> </td>
 			                        <td> <?php echo $row['details'] ?> </td>
-			                        <td> <label class="badge badge-warning"> <?php echo $row['test_status'] ?> </label> </td>
+			                        <td> <label class="badge badge-success"> <?php echo $row['test_status'] ?> </label> </td>
 			                        <td>
 			                                <form>
-			                            <button type="button" class="btn btnAccept btn-outline-success btn-sm"><i class="mdi mdi-check"></i></button>
+			                            <button type="button" class="btn btnAccept btn-outline-primary btn-sm"><i class="mdi mdi-folder-upload"></i></button>
 			                                </form>
 			                                </td>
 

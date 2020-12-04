@@ -60,6 +60,7 @@ if (isset($_SESSION['user_id'])) {
 
     // lists for staff
     $pending_lab_tests_staff = $db->getPendingLabTests();
+    $ongoing_lab_tests_staff = $db->getOngoingLabTests();
 
 } else {
     $_SESSION['error'] = "Session timed out. Please login to continue.";
