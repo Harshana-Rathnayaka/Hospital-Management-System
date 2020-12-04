@@ -84,7 +84,7 @@ include 'sidebar.php';
                         <th width="10"> # </th>
                         <th width="10"> Doctor </th>
                         <th width="10"> Date </th>
-                        <th width="10"> Description </th>
+                        <th width="10"> Reason </th>
                         <th width="10"> Status </th>
 
                       </tr>
@@ -94,30 +94,17 @@ include 'sidebar.php';
                     <?php
 require_once '../api/getLists.php';
 
-while ($row = mysqli_fetch_array($appointments_user)):
-    $appointment_status = $row['appointment_status'];
-    ?>
+while ($row = mysqli_fetch_array($rejected_appointments_user)):
+?>
 				                      <tr>
 				                        <td> <?php echo $row['appointment_id'] ?> </td>
 				                        <td> <?php echo $row['full_name'] ?> </td>
 				                        <td> <?php echo $row['date'] ?> </td>
-                                <td> <?php echo $row['description'] ?> </td>
-
-
-
+                                <td> <?php echo $row['comments'] ?> </td>
 	                              <td>
-	                              <label class="badge
-	                              <?php
-    if ($appointment_status == 'PENDING') {echo 'badge-warning';} elseif ($appointment_status == 'ACCEPTED') {echo 'badge-success';} elseif ($appointment_status == 'COMPLETED') {echo 'badge-info';} elseif ($appointment_status == 'REJECTED') {echo 'badge-danger';}
-
-?>">
-	                            <?php echo $row['appointment_status'] ?>
-	                            </label>
-                              </td>
-
-				                      
-
-                      </tr>
+                                <label class="badge badge-danger"> <?php echo $row['appointment_status'] ?> </label>
+                                </td>
+                              </tr>
 
                       <?php
 endwhile;

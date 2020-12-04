@@ -325,6 +325,26 @@ class DbOperations
 
     }
 
+    // getting the rejected appointments table to the user
+    public function getRejectedAppointmentsByUser($user_id)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.doctor_id WHERE `patient_id` = ? AND `appointment_status` = 'REJECTED'");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
+        // getting the completed appointments table to the user
+        public function getCompletedAppointmentsByUser($user_id)
+        {
+            $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.doctor_id WHERE `patient_id` = ? AND `appointment_status` = 'COMPLETED'");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            return $stmt->get_result();
+    
+        }
+
     // getting all appointments table to the doctor
     public function getOngoingAppointmentsByDoctor($user_id)
     {
