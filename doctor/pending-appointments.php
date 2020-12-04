@@ -75,7 +75,7 @@ include 'sidebar.php';
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="acceptAppointmentFormTitle">Reject Appointment</h5>
+                    <h5 class="modal-title" id="acceptAppointmentFormTitle">Accept Appointment</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true" class="text-danger">&times;</span>
                     </button>
@@ -175,7 +175,6 @@ while ($row = mysqli_fetch_array($pending_appointments_doctor)):
 
 			                                <td>
 			                                <form>
-			                                <input name="appointment_id" type="hidden" value="<?php echo $row['appointment_id'] ?>">
 			                            <button type="button" class="btn btnAccept btn-outline-success btn-sm"><i class="mdi mdi-check"></i></button>
 			                            <button type="button" class="btn btnReject btn-outline-danger btn-sm"> <i class="mdi mdi-close"></i> </button>
 			                                </form>
