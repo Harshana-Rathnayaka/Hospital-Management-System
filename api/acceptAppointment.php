@@ -5,16 +5,17 @@ require_once '../includes/dbOperations.php';
 
 $response = array();
 
-if (isset($_POST['acceptAppointment'])) {
+if (isset($_POST['btnAcceptAppointment'])) {
 
-    if (isset($_POST['appointment_id'])) {
+    if (isset($_POST['appointment_id']) && isset($_POST['date'])) {
 
         $appointment_id = $_POST['appointment_id'];
+        $date = $_POST['date'];
 
         // we can operate the data further
         $db = new DbOperations();
 
-        $result = $db->acceptAppointment($appointment_id);
+        $result = $db->acceptAppointment($appointment_id, $date);
 
         if ($result == 0) {
 

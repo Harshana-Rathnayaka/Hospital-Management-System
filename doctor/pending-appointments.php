@@ -69,6 +69,39 @@ include 'sidebar.php';
                     </div>
 
 
+                    <!-- Accept appointment modal -->
+            <div class="modal fade" id="acceptAppointmentForm" tabindex="-1" role="dialog"
+            aria-labelledby="acceptAppointmentFormTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="acceptAppointmentFormTitle">Reject Appointment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" class="text-danger">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <form action="../api/acceptAppointment.php" method="POST">
+
+                    <input name="appointment_id" id="accept_appointment_id" type="hidden">
+
+                      <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" name="date" required class="form-control" />
+                        <small class="text-success">Please select a date for this appointment</small>
+                      </div>
+
+                      <button type="submit" name="btnAcceptAppointment" class="btn btn-block btn-primary">Save</button>
+                      
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
 
             <!-- Reject appointment modal -->
             <div class="modal fade" id="rejectAppointmentForm" tabindex="-1" role="dialog"
@@ -85,7 +118,7 @@ include 'sidebar.php';
 
                     <form action="../api/rejectAppointment.php" method="POST">
 
-                    <input name="appointment_id" id="appointment_id" type="hidden">
+                    <input name="appointment_id" id="reject_appointment_id" type="hidden">
 
                       <div class="form-group">
                         <label>Reason</label>
@@ -141,12 +174,10 @@ while ($row = mysqli_fetch_array($pending_appointments_doctor)):
 				                              </td>
 
 			                                <td>
-			                                <form action="../api/acceptAppointment.php" method="POST">
+			                                <form>
 			                                <input name="appointment_id" type="hidden" value="<?php echo $row['appointment_id'] ?>">
-			                            <button type="submit" name="acceptAppointment" class="btn btn-outline-success btn-sm"><i class="mdi mdi-check"></i></button>
-			                            <button type="button" class="btn btnReject btn-outline-danger btn-sm">
-	                                <i class="mdi mdi-close"></i>
-	                                </button>
+			                            <button type="button" class="btn btnAccept btn-outline-success btn-sm"><i class="mdi mdi-check"></i></button>
+			                            <button type="button" class="btn btnReject btn-outline-danger btn-sm"> <i class="mdi mdi-close"></i> </button>
 			                                </form>
 			                                </td>
 
@@ -260,7 +291,26 @@ unset($_SESSION['missing']);
 
       console.log(data);
 
-      $('#appointment_id').val(data[0]);
+      $('#reject_appointment_id').val(data[0]);
+
+    });
+  </script>
+
+  <!-- open accept appointment modal on button click -->
+<script>
+    $('.btnAccept').on('click', function() {
+
+      $('#acceptAppointmentForm').modal('show');
+
+      $tr = $(this).closest('tr');
+
+      var data = $tr.children('td').map(function() {
+        return $(this).text();
+      }).get();
+
+      console.log(data);
+
+      $('#accept_appointment_id').val(data[0]);
 
     });
   </script>

@@ -466,10 +466,10 @@ class DbOperations
     /* CRUD  -> U -> UPDATE */
 
     // accept an appointment by doctor
-    public function acceptAppointment($appointment_id)
+    public function acceptAppointment($appointment_id, $date)
     {
-        $stmt = $this->con->prepare("UPDATE `appointments` SET `appointment_status` = 'ACCEPTED' WHERE `appointment_id` = ?");
-        $stmt->bind_param("i", $appointment_id);
+        $stmt = $this->con->prepare("UPDATE `appointments` SET `appointment_status` = 'ACCEPTED', `date` = ? WHERE `appointment_id` = ?");
+        $stmt->bind_param("si", $date, $appointment_id);
 
         if ($stmt->execute()) {
             // appointment accepted
@@ -540,20 +540,20 @@ class DbOperations
         }
     }
 
-        // mark a prescription as received
-        public function markAsReceived($prescription_id)
-        {
-            $stmt = $this->con->prepare("UPDATE `prescriptions` SET `prescription_status` = 'RECEIVED' WHERE `prescription_id` = ?");
-            $stmt->bind_param("i", $prescription_id);
-    
-            if ($stmt->execute()) {
-                // prescription received
-                return 0;
-            } else {
-                // some error
-                return 1;
-            }
+    // mark a prescription as received
+    public function markAsReceived($prescription_id)
+    {
+        $stmt = $this->con->prepare("UPDATE `prescriptions` SET `prescription_status` = 'RECEIVED' WHERE `prescription_id` = ?");
+        $stmt->bind_param("i", $prescription_id);
+
+        if ($stmt->execute()) {
+            // prescription received
+            return 0;
+        } else {
+            // some error
+            return 1;
         }
+    }
 
     // update appointment description
     public function updateDescription($appointment_id, $description)

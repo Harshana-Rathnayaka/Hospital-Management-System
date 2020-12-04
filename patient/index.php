@@ -98,16 +98,6 @@ endif;
                                         </div>
                                     </div>
 
-                                    <!-- <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Date</label>
-                                                <div class="col-sm-9">
-                                                    <input type="date" name="date" required class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group row">
