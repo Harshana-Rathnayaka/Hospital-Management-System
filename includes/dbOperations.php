@@ -335,15 +335,16 @@ class DbOperations
 
     }
 
-        // getting the completed appointments table to the user
-        public function getCompletedAppointmentsByUser($user_id)
-        {
-            $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.doctor_id WHERE `patient_id` = ? AND `appointment_status` = 'COMPLETED'");
-            $stmt->bind_param("i", $user_id);
-            $stmt->execute();
-            return $stmt->get_result();
-    
-        }
+    // getting the completed appointments table to the user
+    public function getCompletedAppointmentsByUser($user_id)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `appointments` app LEFT JOIN `users` u ON u.user_id = app.doctor_id 
+        LEFT JOIN `prescriptions` pres ON pres.appointment_id = app.appointment_id WHERE app.patient_id = ? AND `appointment_status` = 'COMPLETED'");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
 
     // getting all appointments table to the doctor
     public function getOngoingAppointmentsByDoctor($user_id)

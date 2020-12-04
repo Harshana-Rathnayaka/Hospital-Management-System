@@ -70,6 +70,33 @@ include 'sidebar.php';
             </div>
 
 
+             <!-- view prescription modal -->
+        <div class="modal fade" id="viewPrescriptionForm" tabindex="-1" role="dialog"
+            aria-labelledby="viewPrescriptionFormTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="viewPrescriptionFormTitle">Prescription Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" class="text-danger">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <form>
+                      <div class="form-group">
+                        <label>Prescription</label>
+                        <textarea id="prescription" disabled class="form-control bg-dark text-light" cols="30" rows="10"></textarea>
+                      </div>
+                      <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-block btn-secondary">Close</button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           <!-- Table -->
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
@@ -82,9 +109,8 @@ include 'sidebar.php';
                         <th width="10"> # </th>
                         <th width="10"> Doctor </th>
                         <th width="10"> Date </th>
-                        <th width="10"> Description </th>
                         <th width="10"> Status </th>
-
+                        <th width="10"> Action </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -92,30 +118,22 @@ include 'sidebar.php';
                     <?php
 require_once '../api/getLists.php';
 
-while ($row = mysqli_fetch_array($appointments_user)):
-    $appointment_status = $row['appointment_status'];
-    ?>
+while ($row = mysqli_fetch_array($completed_appointments_user)):
+?>
 				                      <tr>
 				                        <td> <?php echo $row['appointment_id'] ?> </td>
 				                        <td> <?php echo $row['full_name'] ?> </td>
 				                        <td> <?php echo $row['date'] ?> </td>
-                                <td> <?php echo $row['description'] ?> </td>
-
-
-
-	                              <td>
-	                              <label class="badge
-	                              <?php
-    if ($appointment_status == 'PENDING') {echo 'badge-warning';} elseif ($appointment_status == 'ACCEPTED') {echo 'badge-success';} elseif ($appointment_status == 'COMPLETED') {echo 'badge-info';} elseif ($appointment_status == 'REJECTED') {echo 'badge-danger';}
-
-?>">
-	                            <?php echo $row['appointment_status'] ?>
-	                            </label>
-                              </td>
-
-				                      
-
-                      </tr>
+                                <td>
+                                <label class="badge badge-primary"> <?php echo $row['appointment_status'] ?> </label>
+                                </td>
+                                <td>
+                                  <form>
+                                    <input class="patientPrescription" type="hidden" value="<?php echo $row['prescription'] ?>">
+                                    <button type="button" class="btn btnViewPrescription btn-outline-info btn-sm"> <i class="mdi mdi-eye"></i> </button>
+                                  </form>
+                                </td>
+                              </tr>
 
                       <?php
 endwhile;
@@ -204,6 +222,32 @@ unset($_SESSION['missing']);
       $('#appointmentsTable').DataTable({
         "lengthMenu": [5, 10],
       });
+    });
+  </script>
+
+  <!-- view prescription modal on button click -->
+<script>
+    $('.btnViewPrescription').on('click', function() {
+
+      $('#viewPrescriptionForm').modal('show');
+
+      $tr = $(this).closest('tr');
+      $form = $(this).closest('form');
+
+      var data = $tr.children('td').map(function() {
+        return $(this).text();
+      }).get();
+
+      var additionalInfo = $form.children('input').map(function() {
+        return $(this).val();
+      }).get();
+
+      console.log(data);
+      console.log(additionalInfo);
+
+      $('#patient').val(data[1]);
+      $('#prescription').val(additionalInfo[0]);
+
     });
   </script>
 </body>
