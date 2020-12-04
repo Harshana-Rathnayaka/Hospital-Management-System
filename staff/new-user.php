@@ -10,8 +10,8 @@ if (!isset($_SESSION['username'])) {
         header('location:../doctor/index.php');
     } else if ($user_type == 'NURSE') {
         header('location:../nurse/index.php');
-    } else if ($user_type == 'STAFF') {
-        header('location:../staff/index.php');
+    } else if ($user_type == 'ADMIN') {
+        header('location:../admin/index.php');
     } else if ($user_type == 'PATIENT') {
         header('location:../patient/index.php');
     }

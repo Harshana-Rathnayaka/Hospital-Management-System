@@ -458,6 +458,15 @@ class DbOperations
 
     }
 
+    // getting pending lab tests to the staff
+    public function getPendingLabTests()
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `lab_tests` INNER JOIN `users` ON users.user_id = lab_tests.patient_id WHERE `test_status` = 'PENDING'");
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
     // getting the orders count by user
     public function getOrdersCountByUserId($user_id)
     {

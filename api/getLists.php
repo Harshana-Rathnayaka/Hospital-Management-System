@@ -58,6 +58,9 @@ if (isset($_SESSION['user_id'])) {
     $shipped_prescriptions = $db->getShippedPrescriptions();
     $completed_prescriptions = $db->getCompletedPrescriptions();
 
+    // lists for staff
+    $pending_lab_tests_staff = $db->getPendingLabTests();
+
 } else {
     $_SESSION['error'] = "Session timed out. Please login to continue.";
     $response['error'] = true;
