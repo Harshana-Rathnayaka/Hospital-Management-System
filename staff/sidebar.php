@@ -42,5 +42,14 @@
       </a>
     </li>
 
+    <li class="nav-item menu-items <?php if ($currentPage == 'completed-tests') {echo 'active';}?>">
+      <a class="nav-link" href="completed-tests.php">
+        <span class="menu-icon">
+          <i class="mdi text-primary mdi-history"></i>
+        </span>
+        <span class="menu-title">Completed</span>
+      </a>
+    </li>
+
   </ul>
 </nav>
