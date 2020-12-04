@@ -85,6 +85,21 @@ class DbOperations
         }
     }
 
+    // create new lab test request by user
+    public function requestALabTest($user_id, $details)
+    {
+        $stmt = $this->con->prepare("INSERT INTO `lab_tests` (`test_id`, `user_id`, `details`, `test_status`) VALUES (NULL, ?, ?, 'PENDING');");
+        $stmt->bind_param("is", $user_id, $details);
+
+        if ($stmt->execute()) {
+            // new appointment created
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
     // uploading prescription by doctor
     public function uploadPrescription($doctor_id, $patient_id, $appointment_id, $prescription)
     {
