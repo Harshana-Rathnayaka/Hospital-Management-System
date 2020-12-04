@@ -33,10 +33,19 @@
       </a>
     </li>
 
+    <li class="nav-item menu-items <?php if ($currentPage == 'ongoing-appointments') {echo 'active';}?>">
+      <a class="nav-link" href="ongoing-appointments.php">
+        <span class="menu-icon">
+          <i class="mdi text-success mdi-calendar-clock"></i>
+        </span>
+        <span class="menu-title">Ongoing</span>
+      </a>
+    </li>
+
     <li class="nav-item menu-items <?php if ($currentPage == 'pending-appointments') {echo 'active';}?>">
       <a class="nav-link" href="pending-appointments.php">
         <span class="menu-icon">
-          <i class="mdi mdi-calendar-text"></i>
+          <i class="mdi text-warning mdi-calendar-text"></i>
         </span>
         <span class="menu-title">Pending</span>
       </a>
@@ -45,7 +54,7 @@
     <li class="nav-item menu-items <?php if ($currentPage == 'rejected-appointments') {echo 'active';}?>">
       <a class="nav-link" href="rejected-appointments.php">
         <span class="menu-icon">
-          <i class="mdi mdi-calendar-remove"></i>
+          <i class="mdi text-danger mdi-calendar-remove"></i>
         </span>
         <span class="menu-title">Rejected</span>
       </a>
@@ -54,7 +63,7 @@
     <li class="nav-item menu-items <?php if ($currentPage == 'completed-appointments') {echo 'active';}?>">
       <a class="nav-link" href="completed-appointments.php">
         <span class="menu-icon">
-          <i class="mdi mdi-calendar-check"></i>
+          <i class="mdi text-primary mdi-calendar-check"></i>
         </span>
         <span class="menu-title">Completed</span>
       </a>
@@ -69,7 +78,7 @@
     <li class="nav-item menu-items <?php if ($currentPage == 'new-test') {echo 'active';}?>">
       <a class="nav-link" href="new-test.php">
         <span class="menu-icon">
-          <i class="mdi mdi-calendar-plus"></i>
+          <i class="mdi text-info mdi-calendar-plus"></i>
         </span>
         <span class="menu-title">New</span>
       </a>
