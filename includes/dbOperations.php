@@ -530,6 +530,21 @@ class DbOperations
         }
     }
 
+    // update appointment description
+    public function updateDescription($appointment_id, $description)
+    {
+        $stmt = $this->con->prepare("UPDATE `appointments` SET `description` = ? WHERE `appointment_id` = ?");
+        $stmt->bind_param("si", $description, $appointment_id);
+
+        if ($stmt->execute()) {
+            // appointment updated
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
     // deleting the prescription by changing the status. Not really deleting.
     public function deletePrescription($prescription_id)
     {

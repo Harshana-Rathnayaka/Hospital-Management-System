@@ -83,7 +83,7 @@ include 'sidebar.php';
                   </div>
                   <div class="modal-body">
 
-                    <form>
+                    <form action="../api/updateAppointment.php" method="POST">
 
                     <input type="hidden" id="appointment_id" name="appointment_id">
 
@@ -92,7 +92,7 @@ include 'sidebar.php';
                         <textarea id="description" name="description" class="form-control bg-dark text-light" cols="30" rows="10"></textarea>
                       </div>
 
-                      <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-block btn-secondary">Close</button>
+                      <button name="btnUpdateAppointment" type="type" class="btn btn-block btn-primary">Save</button>
 
                     </form>
 
