@@ -82,10 +82,10 @@ include 'sidebar.php';
                     <thead>
                       <tr>
                         <th width="10"> # </th>
-                        <th width="10"> Doctor </th>
-                        <th width="10"> Date </th>
-                        <th width="10"> Description </th>
+                        <th width="10"> Prescription </th>
                         <th width="10"> Status </th>
+                        <th width="10"> Location </th>
+                        <th width="10"> Action </th>
 
                       </tr>
                     </thead>
@@ -94,30 +94,29 @@ include 'sidebar.php';
                     <?php
 require_once '../api/getLists.php';
 
-while ($row = mysqli_fetch_array($appointments_user)):
-    $appointment_status = $row['appointment_status'];
+while ($row = mysqli_fetch_array($incoming_prescriptions_user)):
+    $prescription_status = $row['prescription_status'];
     ?>
-				                      <tr>
-				                        <td> <?php echo $row['appointment_id'] ?> </td>
-				                        <td> <?php echo $row['full_name'] ?> </td>
-				                        <td> <?php echo $row['date'] ?> </td>
-                                <td> <?php echo $row['description'] ?> </td>
-
-
-
-	                              <td>
-	                              <label class="badge
-	                              <?php
-    if ($appointment_status == 'PENDING') {echo 'badge-warning';} elseif ($appointment_status == 'ACCEPTED') {echo 'badge-success';} elseif ($appointment_status == 'COMPLETED') {echo 'badge-info';} elseif ($appointment_status == 'REJECTED') {echo 'badge-danger';}
+						                      <tr>
+						                        <td> <?php echo $row['prescription_id'] ?> </td>
+						                        <td> <?php echo $row['prescription'] ?> </td>
+						                        <td>
+			                              <label class="badge
+			                              <?php
+    if ($prescription_status == 'PENDING') {echo 'badge-warning';} elseif ($prescription_status == 'SHIPPED') {echo 'badge-success';}
 
 ?>">
-	                            <?php echo $row['appointment_status'] ?>
-	                            </label>
-                              </td>
-
-				                      
-
-                      </tr>
+	                            <?php echo $row['prescription_status'] ?>
+                                  </label>
+                                  </td>
+                                  <td> <?php echo $row['prescription_location'] ?> </td>
+                                  <td>
+                                  <form action="../api/markAsReceived.php" method="POST">
+                                  <input type="hidden" name="prescription_id" value=" <?php echo $row['prescription_id'] ?> ">
+                                  <button name="btnMarkAsReceived" class="btn btn-outline-primary"> <i class="mdi mdi-check-all"></i></button>
+                                  </form>
+                                  </td>
+                                </tr>
 
                       <?php
 endwhile;

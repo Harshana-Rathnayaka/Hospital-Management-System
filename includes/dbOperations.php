@@ -540,6 +540,21 @@ class DbOperations
         }
     }
 
+        // mark a prescription as shipped
+        public function markAsReceived($prescription_id)
+        {
+            $stmt = $this->con->prepare("UPDATE `prescriptions` SET `prescription_status` = 'RECEIVED' WHERE `prescription_id` = ?");
+            $stmt->bind_param("i", $prescription_id);
+    
+            if ($stmt->execute()) {
+                // prescription shipped
+                return 0;
+            } else {
+                // some error
+                return 1;
+            }
+        }
+
     // update appointment description
     public function updateDescription($appointment_id, $description)
     {
