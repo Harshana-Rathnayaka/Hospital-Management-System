@@ -356,6 +356,16 @@ class DbOperations
 
     }
 
+    // getting the incoming prescriptions table to the user
+    public function getIncomingPrescriptionsByUser($user_id)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `prescriptions` WHERE `patient_id` = ? AND `prescription_status` != 'RECEIVED' AND `prescription_status` != 'COMPLETED'");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
     // getting all appointments table to the doctor
     public function getOngoingAppointmentsByDoctor($user_id)
     {
