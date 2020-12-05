@@ -130,7 +130,7 @@ while ($row = mysqli_fetch_array($completed_appointments_user)):
                                 <td>
                                   <form>
                                     <input class="patientPrescription" type="hidden" value="<?php echo $row['prescription'] ?>">
-                                    <button type="button" class="btn btnViewPrescription btn-outline-info btn-sm"> <i class="mdi mdi-eye"></i> </button>
+                                    <button type="button" class="btn btnViewPrescription btn-outline-info btn-block"> <i class="mdi mdi-eye"></i> </button>
                                   </form>
                                 </td>
                               </tr>

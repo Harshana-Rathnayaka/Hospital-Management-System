@@ -113,7 +113,7 @@ while ($row = mysqli_fetch_array($incoming_prescriptions_user)):
                                   <td>
                                   <form action="../api/markAsReceived.php" method="POST">
                                   <input type="hidden" name="prescription_id" value=" <?php echo $row['prescription_id'] ?> ">
-                                  <button name="btnMarkAsReceived" class="btn btn-outline-primary"> <i class="mdi mdi-check-all"></i></button>
+                                  <button name="btnMarkAsReceived" class="btn btn-block btn-outline-primary"> <i class="mdi mdi-check-all"></i></button>
                                   </form>
                                   </td>
                                 </tr>
