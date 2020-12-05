@@ -125,7 +125,11 @@ while ($row = mysqli_fetch_array($pending_lab_tests_user)):
 				                        <td> <?php echo $row['details'] ?> </td>
 				                        <td> <label class="badge badge-warning"> <?php echo $row['test_status'] ?> </label> </td>
                                         <td>
+                                        <form action="../api/cancelLabTest.php" method="POST">
+                                        <input type="hidden" name="test_id" value="<?php echo $row['test_id'] ?>">
 			                            <button type="button" class="btn updateLabTestDetails btn-outline-info btn-block"> <i class="mdi mdi-pencil-box"></i> </button>
+			                            <button type="submit" name="btnCancelLabTest" class="btn btn-outline-danger btn-block"> <i class="mdi mdi-close"></i> </button>
+                                  </form>
                                         </td>
                                     </tr>
 

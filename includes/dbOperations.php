@@ -702,6 +702,21 @@ class DbOperations
         }
     }
 
+     // cancel a lab test by user
+     public function cancelLabTest($lab_test_id)
+     {
+         $stmt = $this->con->prepare("UPDATE `lab_tests` SET `test_status` = 'CANCELLED' WHERE `test_id` = ?");
+         $stmt->bind_param("i", $lab_test_id);
+ 
+         if ($stmt->execute()) {
+             // lab test cancelled
+             return 0;
+         } else {
+             // some error
+             return 1;
+         }
+     }
+
     // deleting the prescription by changing the status. Not really deleting.
     public function deletePrescription($prescription_id)
     {
