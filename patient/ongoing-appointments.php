@@ -83,7 +83,8 @@ include 'sidebar.php';
                         <th width="10"> # </th>
                         <th width="10"> Doctor </th>
                         <th width="10"> Date </th>
-                        <th width="10"> Description </th>
+                        <th width="10"> Time </th>
+                        <th> Description </th>
                         <th width="10"> Status </th>
 
                       </tr>
@@ -99,6 +100,7 @@ while ($row = mysqli_fetch_array($ongoing_appointments_user)):
 				                        <td> <?php echo $row['appointment_id'] ?> </td>
 				                        <td> <?php echo $row['full_name'] ?> </td>
 				                        <td> <?php echo $row['date'] ?> </td>
+				                        <td> <?php echo $row['time'] ?> </td>
                                 <td> <?php echo $row['description'] ?> </td>
 	                              <td>
                                 <label class="badge badge-success"> <?php echo $row['appointment_status'] ?> </label>
