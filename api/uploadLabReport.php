@@ -13,71 +13,84 @@ if (isset($_POST['btnUploadReport'])) {
 
         $lab_report_name = $_FILES["lab_report"]["name"];
         $lab_report_temp = $_FILES["lab_report"]["tmp_name"];
+        $lab_report_size = $_FILES["lab_report"]["size"];
 
-        $extension = strtolower(substr($lab_report_name, strpos($lab_report_name, '.') + 1));
-        $lab_report_no = rand();
-        $report_link = $lab_report_no . "." . $extension;
+        // checking if the file size is greater than 8mb
+        if ($lab_report_size < 8388608) {
 
-        if ($extension != 'pdf' && $extension != 'PDF') {
+            $extension = strtolower(substr($lab_report_name, strpos($lab_report_name, '.') + 1));
+            $lab_report_no = rand();
+            $report_link = $lab_report_no . "." . $extension;
 
-            // not a pdf
-            $_SESSION['error'] = "You can select PDF files only!";
-            $response['error'] = true;
-            $response['message'] = "You can select PDF files only";
-            header("location:../staff/ongoing-tests.php");
+            if ($extension != 'pdf' && $extension != 'PDF') {
 
-        } else {
+                // not a pdf
+                $_SESSION['error'] = "You can select PDF files only!";
+                $response['error'] = true;
+                $response['message'] = "You can select PDF files only";
+                header("location:../staff/ongoing-tests.php");
 
-            // saving the file to the folder
-            if (move_uploaded_file($lab_report_temp, "../lab-reports/" . $report_link)) {
+            } else {
 
-                // we can operate the data further
-                $db = new DbOperations();
+                // saving the file to the folder
+                if (move_uploaded_file($lab_report_temp, "../lab-reports/" . $report_link)) {
 
-                // uploading the file location to the db
-                $result = $db->uploadTheLabReport($lab_test_id, $report_link);
+                    // we can operate the data further
+                    $db = new DbOperations();
 
-                if ($result == 0) {
+                    // uploading the file location to the db
+                    $result = $db->uploadTheLabReport($lab_test_id, $report_link);
 
-                    $result2 = $db->completeLabReport($lab_test_id);
+                    if ($result == 0) {
 
-                    if ($result2 == 0) {
+                        $result2 = $db->completeLabReport($lab_test_id);
 
-                        // success
-                        $_SESSION['success'] = "Lab Report uploaded successfully!";
-                        $response['error'] = false;
-                        $response['message'] = "Prescription uploaded successfully";
-                        header("location:../staff/ongoing-tests.php");
+                        if ($result2 == 0) {
 
-                    } elseif ($result2 == 1) {
+                            // success
+                            $_SESSION['success'] = "Lab Report uploaded successfully!";
+                            $response['error'] = false;
+                            $response['message'] = "Prescription uploaded successfully";
+                            header("location:../staff/ongoing-tests.php");
+
+                        } elseif ($result2 == 1) {
+
+                            // some error
+                            $_SESSION['error'] = "Something went wrong, Could not mark the lab test as complete. Please try again!";
+                            $response['error'] = true;
+                            $response['message'] = "Some error occured, please try again";
+                            header("location:../staff/ongoing-tests.php");
+
+                        }
+
+                    } elseif ($result == 1) {
 
                         // some error
-                        $_SESSION['error'] = "Something went wrong, Could not mark the lab test as complete. Please try again!";
+                        $_SESSION['error'] = "Something went wrong, Could not upload the report location. Please try again!";
                         $response['error'] = true;
                         $response['message'] = "Some error occured, please try again";
                         header("location:../staff/ongoing-tests.php");
 
                     }
 
-                } elseif ($result == 1) {
+                } else {
 
                     // some error
-                    $_SESSION['error'] = "Something went wrong, Could not upload the report location. Please try again!";
+                    $_SESSION['error'] = "Something went wrong, Could not move the report to the folder. Please try again!";
                     $response['error'] = true;
                     $response['message'] = "Some error occured, please try again";
                     header("location:../staff/ongoing-tests.php");
 
                 }
-
-            } else {
-
-                // some error
-                $_SESSION['error'] = "Something went wrong, Could not move the report to the folder. Please try again!";
-                $response['error'] = true;
-                $response['message'] = "Some error occured, please try again";
-                header("location:../staff/ongoing-tests.php");
-
             }
+        } else {
+
+            // some error
+            $_SESSION['error'] = "The file you selected exceeds the maximum file size allowed!";
+            $response['error'] = true;
+            $response['message'] = "The file you selected exceeds the maximum file size allowed";
+            header("location:../staff/ongoing-tests.php");
+
         }
 
     } else {

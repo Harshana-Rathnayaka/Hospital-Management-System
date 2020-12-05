@@ -88,9 +88,9 @@ include 'sidebar.php';
                     <input name="lab_test_id" id="lab_test_id" type="hidden">
 
                       <div class="form-group">
-                        <label>Date</label>
+                        <label>Lab Report</label>
                         <input type="file" name="lab_report" required class="form-control" />
-                        <small class="text-success">Please select the lab test report (PDF only)</small>
+                        <small class="text-success">Please select the lab test report (PDF only) - maximum file size 8mb *</small>
                       </div>
 
                       <button type="submit" name="btnUploadReport" class="btn btn-block btn-primary">Save</button>
@@ -133,7 +133,7 @@ while ($row = mysqli_fetch_array($ongoing_lab_tests_staff)):
 			                        <td> <label class="badge badge-success"> <?php echo $row['test_status'] ?> </label> </td>
 			                        <td>
 			                                <form>
-			                            <button type="button" class="btn btnUpload btn-outline-primary btn-sm"><i class="mdi mdi-folder-upload"></i></button>
+			                            <button type="button" class="btn btnUpload btn-outline-primary btn-block"><i class="mdi mdi-cloud-upload"></i></button>
 			                                </form>
 			                                </td>
 
