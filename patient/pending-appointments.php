@@ -35,7 +35,8 @@ if (!isset($_SESSION['username'])) {
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="../assets/images/favicon.png" />
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
 
 </head>
 
@@ -162,11 +163,15 @@ if (@$_SESSION['success'] == true) {
     $success = $_SESSION['success'];
     ?>
           <script>
-            swal({
+            Swal.fire({
               title: "SUCCESS!",
               text: "<?php echo $success; ?>",
               icon: "success",
-              button: "OK",
+              toast: true,
+              position: 'top-end',
+              timer: 3000,
+              showConfirmButton: false,
+              timerProgressBar: true,
             });
           </script>
         <?php
@@ -175,11 +180,13 @@ unset($_SESSION['success']);
     $error = $_SESSION['error'];
     ?>
           <script>
-            swal({
+            Swal.fire({
               title: "ERROR!",
               text: "<?php echo $error; ?>",
               icon: "warning",
-              button: "OK",
+              timer: 3000,
+              showConfirmButton: false,
+              timerProgressBar: true,
             });
           </script>
         <?php
@@ -188,11 +195,13 @@ unset($_SESSION['error']);
     $missing = $_SESSION['missing'];
     ?>
           <script>
-            swal({
+            Swal.fire({
               title: "INFO!",
               text: "<?php echo $missing; ?>",
               icon: "info",
-              button: "OK",
+              timer: 3000,
+              showConfirmButton: false,
+              timerProgressBar: true,
             });
           </script>
         <?php
@@ -249,7 +258,7 @@ unset($_SESSION['missing']);
       console.log(data);
 
       $('#appointment_id').val(data[0]);
-      $('#description').val(data[3]);
+      $('#description').val(data[2]);
 
     });
   </script>
