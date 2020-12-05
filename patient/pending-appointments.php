@@ -137,7 +137,11 @@ while ($row = mysqli_fetch_array($pending_appointments_user)):
 	                              <label class="badge badge-warning"> <?php echo $row['appointment_status'] ?>  </label>
                                 </td>
                                 <td>
+                                <form action="../api/cancelAppointment.php" method="POST">
+                                  <input type="hidden" name="appointment_id" value="<?php echo $row['appointment_id'] ?>">
 			                            <button type="button" class="btn btnViewDetails btn-outline-info btn-block"> <i class="mdi mdi-pencil-box"></i> </button>
+			                            <button type="submit" name="btnCancelAppointment" class="btn btn-outline-danger btn-block"> <i class="mdi mdi-close"></i> </button>
+                                </form>
                                 </td>
                               </tr>
 
@@ -238,7 +242,7 @@ unset($_SESSION['missing']);
       $('#viewDetailsForm').modal('show');
 
       $tr = $(this).closest('tr');
-     
+
       var data = $tr.children('td').map(function() {
         return $(this).text();
       }).get();

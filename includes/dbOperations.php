@@ -416,15 +416,15 @@ class DbOperations
 
     }
 
-        // getting the ongoing lab tests table to the user
-        public function getOngoingLabTestsByUser($user_id)
-        {
-            $stmt = $this->con->prepare("SELECT * FROM `lab_tests` WHERE `patient_id` = ? AND `test_status` = 'ACCEPTED'");
-            $stmt->bind_param("i", $user_id);
-            $stmt->execute();
-            return $stmt->get_result();
-    
-        }
+    // getting the ongoing lab tests table to the user
+    public function getOngoingLabTestsByUser($user_id)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `lab_tests` WHERE `patient_id` = ? AND `test_status` = 'ACCEPTED'");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
 
     // getting all appointments table to the doctor
     public function getOngoingAppointmentsByDoctor($user_id)
@@ -702,20 +702,35 @@ class DbOperations
         }
     }
 
-     // cancel a lab test by user
-     public function cancelLabTest($lab_test_id)
-     {
-         $stmt = $this->con->prepare("UPDATE `lab_tests` SET `test_status` = 'CANCELLED' WHERE `test_id` = ?");
-         $stmt->bind_param("i", $lab_test_id);
- 
-         if ($stmt->execute()) {
-             // lab test cancelled
-             return 0;
-         } else {
-             // some error
-             return 1;
-         }
-     }
+    // cancel a lab test by user
+    public function cancelLabTest($lab_test_id)
+    {
+        $stmt = $this->con->prepare("UPDATE `lab_tests` SET `test_status` = 'CANCELLED' WHERE `test_id` = ?");
+        $stmt->bind_param("i", $lab_test_id);
+
+        if ($stmt->execute()) {
+            // lab test cancelled
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
+    // cancel an appointment by user
+    public function cancelAppointment($appointment_id)
+    {
+        $stmt = $this->con->prepare("UPDATE `appointments` SET `appointment_status` = 'CANCELLED' WHERE `appointment_id` = ?");
+        $stmt->bind_param("i", $appointment_id);
+
+        if ($stmt->execute()) {
+            // appointment cancelled
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
 
     // deleting the prescription by changing the status. Not really deleting.
     public function deletePrescription($prescription_id)
