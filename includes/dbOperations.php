@@ -677,6 +677,21 @@ class DbOperations
         }
     }
 
+    // update lab test details
+    public function updateLabTestDetails($lab_test_id, $details)
+    {
+        $stmt = $this->con->prepare("UPDATE `lab_tests` SET `details` = ? WHERE `test_id` = ?");
+        $stmt->bind_param("si", $details, $lab_test_id);
+
+        if ($stmt->execute()) {
+            // lab test details updated
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
     // deleting the prescription by changing the status. Not really deleting.
     public function deletePrescription($prescription_id)
     {

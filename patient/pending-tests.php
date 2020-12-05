@@ -76,19 +76,20 @@ include 'sidebar.php';
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="editLabTestFormTitle">Prescription Details</h5>
+                    <h5 class="modal-title" id="editLabTestFormTitle">Edit the Lab Test Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true" class="text-danger">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
 
-                    <form>
+                    <form action="../api/updateLabTest.php" method="POST">
+                    <input type="hidden" name="lab_test_id" id="lab_test_id">
                       <div class="form-group">
-                        <label>Prescription</label>
-                        <textarea id="prescription" disabled class="form-control bg-dark text-light" cols="30" rows="10"></textarea>
+                        <label>Details</label>
+                        <textarea id="details" name="details" class="form-control bg-dark text-light" cols="30" rows="10"></textarea>
                       </div>
-                      <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-block btn-secondary">Close</button>
+                      <button type="submit" name="btnUpdateLabTest" class="btn btn-block btn-primary">Save</button>
                     </form>
 
                   </div>
@@ -107,8 +108,9 @@ include 'sidebar.php';
                     <thead>
                       <tr>
                         <th width="10"> # </th>
-                        <th width="10"> Doctor </th>
+                        <th > Details </th>
                         <th width="10"> Status </th>
+                        <th width="10"> Action </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -118,12 +120,14 @@ require_once '../api/getLists.php';
 
 while ($row = mysqli_fetch_array($pending_lab_tests_user)):
 ?>
-				                      <tr>
+				                    <tr>
 				                        <td> <?php echo $row['test_id'] ?> </td>
 				                        <td> <?php echo $row['details'] ?> </td>
 				                        <td> <label class="badge badge-warning"> <?php echo $row['test_status'] ?> </label> </td>
-
-                              </tr>
+                                        <td>
+			                            <button type="button" class="btn updateLabTestDetails btn-outline-info btn-sm"> <i class="mdi mdi-pencil-box"></i> </button>
+                                        </td>
+                                    </tr>
 
                       <?php
 endwhile;
@@ -217,26 +221,21 @@ unset($_SESSION['missing']);
 
   <!-- view prescription modal on button click -->
 <script>
-    $('.btnViewPrescription').on('click', function() {
+    $('.updateLabTestDetails').on('click', function() {
 
       $('#editLabTestForm').modal('show');
 
       $tr = $(this).closest('tr');
-      $form = $(this).closest('form');
 
       var data = $tr.children('td').map(function() {
         return $(this).text();
       }).get();
 
-      var additionalInfo = $form.children('input').map(function() {
-        return $(this).val();
-      }).get();
 
       console.log(data);
-      console.log(additionalInfo);
 
-      $('#patient').val(data[1]);
-      $('#prescription').val(additionalInfo[0]);
+      $('#lab_test_id').val(data[0]);
+      $('#details').val(data[1]);
 
     });
   </script>
