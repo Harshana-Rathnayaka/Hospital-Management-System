@@ -85,7 +85,7 @@ include 'sidebar.php';
                         <th width="10"> # </th>
                         <th width="10"> Patient </th>
                         <th width="10"> Description </th>
-                        <th> Comments </th>
+                        <th> Reason </th>
                         <th width="10"> Status </th>
                       </tr>
                     </thead>
