@@ -399,7 +399,7 @@ class DbOperations
     // getting the completed lab tests table to the user
     public function getCompletedLabTestsByUser($user_id)
     {
-        $stmt = $this->con->prepare("SELECT * FROM `lab_tests` WHERE `patient_id` = ? AND `test_status` = 'COMPLETED'");
+        $stmt = $this->con->prepare("SELECT * FROM `lab_tests` INNER JOIN `lab_reports` ON lab_reports.lab_test_id = lab_tests.test_id WHERE `patient_id` = ? AND `test_status` = 'COMPLETED'");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         return $stmt->get_result();
