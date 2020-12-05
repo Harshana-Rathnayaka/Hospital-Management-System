@@ -98,7 +98,11 @@ while ($row = mysqli_fetch_array($completed_lab_tests_user)):
 				                        <td> <?php echo $row['details'] ?> </td>
 				                        <td> <label class="badge badge-primary"> <?php echo $row['test_status'] ?> </label> </td>
                                 <td class="text-center">
-			                            <button type="button" class="btn updateLabTestDetails btn-outline-secondary btn-block"> <i class="mdi text-center mdi-cloud-download"></i> </button>
+                                  <a href="../lab-reports/<?php echo $row['file_location'] ?>" download="<?php echo $row['file_location'] ?>">
+                                    <button type="button" class="btn btn-outline-secondary btn-block">
+                                      <i class="mdi mdi-cloud-download"></i>
+                                    </button>
+                                  </a>
                                 </td>
                               </tr>
 
