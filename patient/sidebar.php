@@ -78,7 +78,7 @@
     <li class="nav-item menu-items <?php if ($currentPage == 'new-test') {echo 'active';}?>">
       <a class="nav-link" href="new-test.php">
         <span class="menu-icon">
-          <i class="mdi text-info mdi-calendar-plus"></i>
+          <i class="mdi text-info mdi-thermometer"></i>
         </span>
         <span class="menu-title">New</span>
       </a>
@@ -87,7 +87,7 @@
     <li class="nav-item menu-items <?php if ($currentPage == 'completed-tests') {echo 'active';}?>">
       <a class="nav-link" href="completed-tests.php">
         <span class="menu-icon">
-          <i class="mdi mdi-calendar-plus"></i>
+          <i class="mdi mdi-test-tube"></i>
         </span>
         <span class="menu-title">Completed</span>
       </a>
