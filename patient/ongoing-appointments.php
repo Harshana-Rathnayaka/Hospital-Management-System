@@ -33,6 +33,7 @@ if (!isset($_SESSION['username'])) {
   <!-- endinject -->
   <!-- Layout styles -->
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="./charge.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="../assets/images/favicon.png" />
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -70,6 +71,46 @@ include 'sidebar.php';
             </div>
 
 
+            <!-- make payment modal -->
+        <div class="modal fade" id="makePaymentForm" tabindex="-1" role="dialog"
+            aria-labelledby="makePaymentFormTitle" aria-hidden="true">
+              <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="makePaymentFormTitle">Make the Payment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" class="text-danger">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container">
+                      <form action="../api/charge.php" method="post" id="payment-form">
+
+                        <input type="hidden" id="appointment_id" name="appointment_id">
+
+                          <div class="form-row">
+
+                          <input type="text" name="name_on_card" class="form-control bg-dark mb-3 text-light StripeElement StripeElement--empty" placeholder="Name on card">
+
+                            <div id="card-element" class="form-control bg-dark">
+                                <!-- A Stripe Element will be inserted here. -->
+                            </div>
+
+                          </div>
+
+                              <!-- Used to display form errors. -->
+                              <div id="card-errors" role="alert" class="text-danger"></div>
+
+                        <button name="btnMakePayment" class="btn btn-primary btn-block mt-4">Submit Payment</button>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
 
           <!-- Table -->
           <div class="col-lg-12 grid-margin stretch-card">
@@ -86,6 +127,7 @@ include 'sidebar.php';
                         <th width="10"> Time </th>
                         <th> Description </th>
                         <th width="10"> Status </th>
+                        <th width="10"> Action </th>
 
                       </tr>
                     </thead>
@@ -104,6 +146,9 @@ while ($row = mysqli_fetch_array($ongoing_appointments_user)):
                                 <td> <?php echo $row['description'] ?> </td>
 	                              <td>
                                 <label class="badge badge-success"> <?php echo $row['appointment_status'] ?> </label>
+                                </td>
+                                <td>
+                                <button type="button" class="btn btnViewPayment btn-outline-info btn-block"> <i class="mdi mdi-pencil-box"></i> </button>
                                 </td>
                               </tr>
 
@@ -188,12 +233,34 @@ unset($_SESSION['missing']);
 
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="./charge.js"></script>
 
   <script>
     $(document).ready(function() {
       $('#appointmentsTable').DataTable({
         "lengthMenu": [5, 10],
       });
+    });
+  </script>
+
+  <!-- make payment modal on button click -->
+<script>
+    $('.btnViewPayment').on('click', function() {
+
+      $('#makePaymentForm').modal('show');
+
+      $tr = $(this).closest('tr');
+
+      var data = $tr.children('td').map(function() {
+        return $(this).text();
+      }).get();
+
+
+      console.log(data);
+
+      $('#appointment_id').val(data[0]);
+
     });
   </script>
 </body>
