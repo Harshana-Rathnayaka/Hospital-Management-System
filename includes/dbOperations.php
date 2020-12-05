@@ -553,10 +553,10 @@ class DbOperations
     /* CRUD  -> U -> UPDATE */
 
     // accept an appointment by doctor
-    public function acceptAppointment($appointment_id, $date)
+    public function acceptAppointment($appointment_id, $date, $time)
     {
-        $stmt = $this->con->prepare("UPDATE `appointments` SET `appointment_status` = 'ACCEPTED', `date` = ? WHERE `appointment_id` = ?");
-        $stmt->bind_param("si", $date, $appointment_id);
+        $stmt = $this->con->prepare("UPDATE `appointments` SET `appointment_status` = 'ACCEPTED', `date` = ?, `time` = ? WHERE `appointment_id` = ?");
+        $stmt->bind_param("ssi", $date, $time, $appointment_id);
 
         if ($stmt->execute()) {
             // appointment accepted

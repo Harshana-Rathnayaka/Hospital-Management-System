@@ -75,7 +75,7 @@ include 'sidebar.php';
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="acceptAppointmentFormTitle">Accept Appointment</h5>
+                    <h5 class="modal-title" id="acceptAppointmentFormTitle">Accept the Appointment</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true" class="text-danger">&times;</span>
                     </button>
@@ -90,6 +90,12 @@ include 'sidebar.php';
                         <label>Date</label>
                         <input type="date" name="date" required class="form-control" />
                         <small class="text-success">Please select a date for this appointment</small>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Time</label>
+                        <input type="time" name="time" required class="form-control" />
+                        <small class="text-success">Please select a time slot for this appointment</small>
                       </div>
 
                       <button type="submit" name="btnAcceptAppointment" class="btn btn-block btn-primary">Save</button>
@@ -109,7 +115,7 @@ include 'sidebar.php';
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="rejectAppointmentFormTitle">Reject Appointment</h5>
+                    <h5 class="modal-title" id="rejectAppointmentFormTitle">Reject the Appointment</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true" class="text-danger">&times;</span>
                     </button>

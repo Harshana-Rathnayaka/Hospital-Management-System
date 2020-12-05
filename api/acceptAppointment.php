@@ -7,15 +7,16 @@ $response = array();
 
 if (isset($_POST['btnAcceptAppointment'])) {
 
-    if (isset($_POST['appointment_id']) && isset($_POST['date'])) {
+    if (isset($_POST['appointment_id']) && isset($_POST['date']) && isset($_POST['time'])) {
 
         $appointment_id = $_POST['appointment_id'];
         $date = $_POST['date'];
+        $time = $_POST['time'];
 
         // we can operate the data further
         $db = new DbOperations();
 
-        $result = $db->acceptAppointment($appointment_id, $date);
+        $result = $db->acceptAppointment($appointment_id, $date, $time);
 
         if ($result == 0) {
 
