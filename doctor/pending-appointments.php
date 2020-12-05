@@ -153,7 +153,6 @@ include 'sidebar.php';
                       <tr>
                         <th width="10"> # </th>
                         <th width="10"> Patient </th>
-                        <th width="10"> Date </th>
                         <th> Description </th>
                         <th width="10"> Status </th>
                         <th width="10"> Action </th>
@@ -169,10 +168,7 @@ while ($row = mysqli_fetch_array($pending_appointments_doctor)):
 								                      <tr>
 								                        <td> <?php echo $row['appointment_id'] ?> </td>
 								                        <td> <?php echo $row['full_name'] ?> </td>
-								                        <td> <?php echo $row['date'] ?> </td>
 								                        <td> <?php echo $row['description'] ?> </td>
-
-
 					                              <td>
 					                              <label class="badge badge-warning">
 					                            <?php echo $row['appointment_status'] ?>
