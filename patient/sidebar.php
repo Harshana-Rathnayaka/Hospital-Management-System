@@ -93,10 +93,19 @@
       </a>
     </li>
 
+    <li class="nav-item menu-items <?php if ($currentPage == 'ongoing-tests') {echo 'active';}?>">
+      <a class="nav-link" href="ongoing-tests.php">
+        <span class="menu-icon">
+          <i class="mdi text-success mdi-test-tube"></i>
+        </span>
+        <span class="menu-title">Ongoing</span>
+      </a>
+    </li>
+
     <li class="nav-item menu-items <?php if ($currentPage == 'completed-tests') {echo 'active';}?>">
       <a class="nav-link" href="completed-tests.php">
         <span class="menu-icon">
-          <i class="mdi text-primary mdi-test-tube"></i>
+          <i class="mdi text-primary mdi-history"></i>
         </span>
         <span class="menu-title">Completed</span>
       </a>
@@ -111,7 +120,7 @@
     <li class="nav-item menu-items <?php if ($currentPage == 'incoming-prescriptions') {echo 'active';}?>">
       <a class="nav-link" href="incoming-prescriptions.php">
         <span class="menu-icon">
-          <i class="mdi mdi-briefcase"></i>
+          <i class="mdi text-warning mdi-briefcase"></i>
         </span>
         <span class="menu-title">Incoming</span>
       </a>

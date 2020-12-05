@@ -416,6 +416,16 @@ class DbOperations
 
     }
 
+        // getting the ongoing lab tests table to the user
+        public function getOngoingLabTestsByUser($user_id)
+        {
+            $stmt = $this->con->prepare("SELECT * FROM `lab_tests` WHERE `patient_id` = ? AND `test_status` = 'ACCEPTED'");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            return $stmt->get_result();
+    
+        }
+
     // getting all appointments table to the doctor
     public function getOngoingAppointmentsByDoctor($user_id)
     {
