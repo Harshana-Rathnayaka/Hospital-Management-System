@@ -46,6 +46,7 @@ if (isset($_SESSION['user_id'])) {
     $completed_appointments_user = $db->getCompletedAppointmentsByUser($user_id);
     $incoming_prescriptions_user = $db->getIncomingPrescriptionsByUser($user_id);
     $completed_lab_tests_user = $db->getCompletedLabTestsByUser($user_id);
+    $pending_lab_tests_user = $db->getPendingLabTestsByUser($user_id);
 
     // lists for doctor
     $ongoing_appointments_doctor = $db->getOngoingAppointmentsByDoctor($user_id);

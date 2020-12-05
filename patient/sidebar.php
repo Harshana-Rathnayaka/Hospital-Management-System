@@ -84,10 +84,19 @@
       </a>
     </li>
 
+    <li class="nav-item menu-items <?php if ($currentPage == 'pending-tests') {echo 'active';}?>">
+      <a class="nav-link" href="pending-tests.php">
+        <span class="menu-icon">
+          <i class="mdi text-warning mdi-heart-pulse"></i>
+        </span>
+        <span class="menu-title">Pending</span>
+      </a>
+    </li>
+
     <li class="nav-item menu-items <?php if ($currentPage == 'completed-tests') {echo 'active';}?>">
       <a class="nav-link" href="completed-tests.php">
         <span class="menu-icon">
-          <i class="mdi mdi-test-tube"></i>
+          <i class="mdi text-primary mdi-test-tube"></i>
         </span>
         <span class="menu-title">Completed</span>
       </a>
