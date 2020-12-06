@@ -157,8 +157,6 @@ if (@$_SESSION['success'] == true) {
               title: "SUCCESS!",
               text: "<?php echo $success; ?>",
               icon: "success",
-              toast: true,
-              position: 'top-end',
               timer: 3000,
               showConfirmButton: false,
               timerProgressBar: true,
