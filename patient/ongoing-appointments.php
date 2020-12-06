@@ -86,6 +86,7 @@ include 'sidebar.php';
                     <div class="container">
                       <form action="../api/charge.php" method="post" id="payment-form">
 
+                        <input type="hidden" id="appointment_id" name="id">
                         <input type="hidden" id="amount" name="amount" value="500000">
                         <input type="hidden" id="payment_for" name="payment_for" value="APPOINTMENT">
 

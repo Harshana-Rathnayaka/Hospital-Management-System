@@ -12,6 +12,7 @@ $stripe = new \Stripe\StripeClient('sk_test_TeymjdiMfBgX3S3Y4aH02mHJ00iHAcAqO7')
 $POST = filter_var_array($_POST, FILTER_SANITIZE_STRING);
 
 // getting the values
+$id = $POST['id'];
 $amount = $POST['amount'];
 $payment_for = $POST['payment_for'];
 $name_on_card = $POST['name_on_card'];
@@ -42,7 +43,26 @@ $result = $db->addToPayments($patient_id, $payment_for, $real_amount, $stripe_cu
 
 if ($result == 0) {
 
-    // success
+    $result2 = $db->markAsPaid($id, $payment_for);
+
+    if ($result2 == 0) {
+
+        // pament was successful and added to both stripe and the db
+        $_SESSION['success'] = $charge->description . ' was successful. Payment ID - ' . $charge->id;
+        $response['error'] = false;
+        $response['message'] = "Payment was successful";
+        header("location:../patient/ongoing-appointments.php");
+
+    } elseif ($result2 == 1) {
+
+        // could not add to the db
+        $_SESSION['error'] = "Something went wrong, " . $payment_for . " could not be marked as PAID!";
+        $response['error'] = true;
+        $response['message'] = "Something went wrong, " . $payment_for . " could not be marked as PAID!";
+        header("location:../patient/ongoing-appointments.php");
+    }
+
+    // payment was successful and added to stripe
     $_SESSION['success'] = $charge->description . ' was successful. Payment ID - ' . $charge->id;
     $response['error'] = false;
     $response['message'] = "Payment was successful";
@@ -50,7 +70,7 @@ if ($result == 0) {
 
 } elseif ($result == 1) {
 
-    // some error
+    // payment was not successful and could not be added to the stripe dashboard
     $_SESSION['error'] = "Something went wrong, please try again!";
     $response['error'] = true;
     $response['message'] = "Some error occured, please try again";

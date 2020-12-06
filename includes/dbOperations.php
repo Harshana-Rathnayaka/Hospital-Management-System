@@ -100,6 +100,27 @@ class DbOperations
         }
     }
 
+    // marking as PAID by user
+    public function markAsPaid($id, $payment_for)
+    {
+
+        if ($payment_for == 'APPOINTMENT') {
+            $stmt = $this->con->prepare("UPDATE `appointments` SET `appointment_status` = 'PAID' WHERE `appointment_id` = ?");
+            $stmt->bind_param("i", $id);
+        } elseif ($payment_for == 'LAB_TEST') {
+            $stmt = $this->con->prepare("UPDATE `lab_tests` SET `test_status` = 'PAID' WHERE `test_id` = ?");
+            $stmt->bind_param("i", $id);
+        }
+
+        if ($stmt->execute()) {
+            // marked as PAID
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
     // create new lab test request by user
     public function requestALabTest($user_id, $details)
     {
@@ -142,51 +163,6 @@ class DbOperations
         } else {
             // some error
             return 1;
-        }
-    }
-
-    // adding to wishlist
-    public function addToWishlist($user_id, $vehicle_id, $make_id, $quantity)
-    {
-        $stmt = $this->con->prepare("INSERT INTO `wishlist`(`user_id`, `vehicle_id`, `make_id`, `quantity`) VALUES (?, ?, ?, ?); ");
-        $stmt->bind_param("iiii", $user_id, $vehicle_id, $make_id, $quantity);
-
-        if ($stmt->execute()) {
-            // added to wishlist
-            return 1;
-        } else {
-            // some error
-            return 2;
-        }
-    }
-
-    // adding to cart
-    public function addToCart($user_id, $vehicle_id, $make_id, $quantity, $total)
-    {
-        $stmt = $this->con->prepare("INSERT INTO `cart`(`user_id`, `vehicle_id`, `make_id`, `quantity`, `total_price`) VALUES (?, ?, ?, ?, ?); ");
-        $stmt->bind_param("iiiii", $user_id, $vehicle_id, $make_id, $quantity, $total);
-
-        if ($stmt->execute()) {
-            // added to cart
-            return 1;
-        } else {
-            // some error
-            return 2;
-        }
-    }
-
-    // adding to orders
-    public function addToOrders($user_id, $make, $model, $quantity, $total)
-    {
-        $stmt = $this->con->prepare("INSERT INTO `orders`(`user_id`, `make`, `model`, `quantity`, `paid_amount`) VALUES (?, ?, ?, ?, ?); ");
-        $stmt->bind_param("issii", $user_id, $make, $model, $quantity, $total);
-
-        if ($stmt->execute()) {
-            // added to orders table
-            return 1;
-        } else {
-            // some error
-            return 2;
         }
     }
 
@@ -291,55 +267,6 @@ class DbOperations
 		 WHERE `user_id` = ? ORDER BY `wishlist_id`
 		");
         $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    // retrieving cart table
-    public function getCartByUserId($user_id)
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `cart` INNER JOIN `users` ON users.id = cart.user_id INNER JOIN
-		vehicles ON vehicles.vehicle_id = cart.vehicle_id INNER JOIN `manufacturers` ON manufacturers.make_id = cart.make_id
-		WHERE `user_id` = ? ORDER BY `cart_id`
-		");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    // retrieving orders table by user id
-    public function getOrdersByUserId($user_id)
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `orders` INNER JOIN `users` ON users.id = orders.user_id
-		WHERE `user_id` = ? ORDER BY `order_id`");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    // retrieving pending orders to user
-    public function getPendingOrdersById($user_id)
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `orders` INNER JOIN `users` ON users.id = orders.user_id
-		WHERE `user_id` = ? AND `order_status` = 0 ORDER BY `order_id`");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    // retrieving pending orders to admin
-    public function getAllPendingOrders()
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `orders` INNER JOIN `users` ON users.id = orders.user_id
-		WHERE `order_status` = 0 ORDER BY `timestamp`");
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    // retrieving all orders to admin
-    public function getAllOrders()
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `orders` INNER JOIN `users` ON users.id = orders.user_id ORDER BY `timestamp`");
         $stmt->execute();
         return $stmt->get_result();
     }
