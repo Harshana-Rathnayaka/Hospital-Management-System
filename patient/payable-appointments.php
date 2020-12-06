@@ -45,7 +45,7 @@ if (!isset($_SESSION['username'])) {
 
     <!-- sidebar -->
     <?php
-$currentPage = 'ongoing-appointments';
+$currentPage = 'payable-appointments';
 include 'sidebar.php';
 ?>
     <!-- sidebar -->
@@ -65,7 +65,7 @@ include 'sidebar.php';
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Appointments</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Ongoing</li>
+                  <li class="breadcrumb-item active" aria-current="page">Payable</li>
                 </ol>
               </nav>
             </div>

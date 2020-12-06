@@ -42,6 +42,15 @@
       </a>
     </li>
 
+    <li class="nav-item menu-items <?php if ($currentPage == 'payable-appointments') {echo 'active';}?>">
+      <a class="nav-link" href="payable-appointments.php">
+        <span class="menu-icon">
+          <i class="mdi text-info mdi-credit-card-clock"></i>
+        </span>
+        <span class="menu-title">Payable</span>
+      </a>
+    </li>
+
     <li class="nav-item menu-items <?php if ($currentPage == 'pending-appointments') {echo 'active';}?>">
       <a class="nav-link" href="pending-appointments.php">
         <span class="menu-icon">
