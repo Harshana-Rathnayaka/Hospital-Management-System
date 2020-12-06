@@ -101,6 +101,8 @@ include 'sidebar.php';
                               <!-- Used to display form errors. -->
                               <div id="card-errors" role="alert" class="text-danger"></div>
 
+                              <small class="text-success">You will be charged an amount of Rs. 5000/= for this appointment.</small>
+
                         <button name="btnMakePayment" class="btn btn-primary btn-block mt-4">Submit Payment</button>
                       </form>
                     </div>
