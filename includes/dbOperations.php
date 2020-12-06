@@ -297,10 +297,20 @@ class DbOperations
 
     }
 
+    // getting the payable appointments table to the user
+    public function getPayableAppointmentsByUser($user_id)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.doctor_id WHERE `patient_id` = ? AND `appointment_status` = 'ACCEPTED'");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
     // getting the ongoing appointments table to the user
     public function getOngoingAppointmentsByUser($user_id)
     {
-        $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.doctor_id WHERE `patient_id` = ? AND `appointment_status` = 'ACCEPTED'");
+        $stmt = $this->con->prepare("SELECT * FROM `appointments` INNER JOIN `users` ON users.user_id = appointments.doctor_id WHERE `patient_id` = ? AND `appointment_status` = 'PAID'");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         return $stmt->get_result();

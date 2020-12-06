@@ -41,6 +41,7 @@ if (isset($_SESSION['user_id'])) {
     // lists for patient
     $doctors = $db->getDoctors();
     $pending_appointments_user = $db->getPendingAppointmentsByUser($user_id);
+    $payable_appointments_user = $db->getPayableAppointmentsByUser($user_id);
     $ongoing_appointments_user = $db->getOngoingAppointmentsByUser($user_id);
     $rejected_appointments_user = $db->getRejectedAppointmentsByUser($user_id);
     $completed_appointments_user = $db->getCompletedAppointmentsByUser($user_id);

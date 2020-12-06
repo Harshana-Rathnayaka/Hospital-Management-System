@@ -45,7 +45,7 @@ if (!isset($_SESSION['username'])) {
 
     <!-- sidebar -->
     <?php
-$currentPage = 'payable-appointments';
+$currentPage = 'ongoing-appointments';
 include 'sidebar.php';
 ?>
     <!-- sidebar -->
@@ -65,53 +65,9 @@ include 'sidebar.php';
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Appointments</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Payable</li>
+                  <li class="breadcrumb-item active" aria-current="page">Ongoing</li>
                 </ol>
               </nav>
-            </div>
-
-
-            <!-- make payment modal -->
-        <div class="modal fade" id="makePaymentForm" tabindex="-1" role="dialog"
-            aria-labelledby="makePaymentFormTitle" aria-hidden="true">
-              <div class="modal-dialog " role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="makePaymentFormTitle">Make the Payment</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true" class="text-danger">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="container">
-                      <form action="../api/charge.php" method="post" id="payment-form">
-
-                        <input type="hidden" id="appointment_id" name="id">
-                        <input type="hidden" id="amount" name="amount" value="500000">
-                        <input type="hidden" id="payment_for" name="payment_for" value="APPOINTMENT">
-
-                          <div class="form-row">
-
-                          <input type="text" name="name_on_card" class="form-control bg-dark mb-3 text-light StripeElement StripeElement--empty" placeholder="Name on card">
-
-                            <div id="card-element" class="form-control bg-dark">
-                                <!-- A Stripe Element will be inserted here. -->
-                            </div>
-
-                          </div>
-
-                              <!-- Used to display form errors. -->
-                              <div id="card-errors" role="alert" class="text-danger"></div>
-
-                              <small class="text-success">You will be charged an amount of Rs. 5000/= for this appointment.</small>
-
-                        <button name="btnMakePayment" class="btn btn-primary btn-block mt-4">Submit Payment</button>
-                      </form>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
             </div>
 
 
@@ -131,8 +87,6 @@ include 'sidebar.php';
                         <th width="10"> Time </th>
                         <th> Description </th>
                         <th width="10"> Status </th>
-                        <th width="10"> Action </th>
-
                       </tr>
                     </thead>
                     <tbody>
@@ -140,7 +94,7 @@ include 'sidebar.php';
                     <?php
 require_once '../api/getLists.php';
 
-while ($row = mysqli_fetch_array($payable_appointments_user)):
+while ($row = mysqli_fetch_array($ongoing_appointments_user)):
 ?>
 				                      <tr>
 				                        <td> <?php echo $row['appointment_id'] ?> </td>
@@ -148,11 +102,8 @@ while ($row = mysqli_fetch_array($payable_appointments_user)):
 				                        <td> <?php echo $row['date'] ?> </td>
 				                        <td> <?php echo $row['time'] ?> </td>
                                 <td> <?php echo $row['description'] ?> </td>
-	                              <td>
+	                              <td class="text-center">
                                 <label class="badge badge-success"> <?php echo $row['appointment_status'] ?> </label>
-                                </td>
-                                <td>
-                                <button type="button" class="btn btnViewPayment btn-outline-info btn-block"> <i class="mdi mdi-credit-card"></i> </button>
                                 </td>
                               </tr>
 
