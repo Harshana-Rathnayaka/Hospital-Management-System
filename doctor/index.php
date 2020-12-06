@@ -135,7 +135,7 @@ while ($row = mysqli_fetch_array($ongoing_appointments_doctor)):
 									                        <td> <?php echo $row['date'] ?> </td>
 									                        <td> <?php echo $row['time'] ?> </td>
 									                        <td> <?php echo $row['description'] ?> </td>
-	                                        <td>
+	                                        <td class="text-center">
 	                                          <label class="badge badge-success"> <?php echo $row['appointment_status'] ?></label>
 	                                        </td>
 	                              <td class="text-center">
