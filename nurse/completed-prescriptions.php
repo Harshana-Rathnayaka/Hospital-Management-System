@@ -35,7 +35,8 @@ if (!isset($_SESSION['username'])) {
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="../assets/images/favicon.png" />
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
 
 </head>
 
@@ -68,8 +69,8 @@ include 'sidebar.php';
                     <thead>
                       <tr>
                         <th> Patient </th>
-                        <th width="10"> Prescription </th>
-                        <th> Status </th>
+                        <th Prescription </th>
+                        <th width="10"> Status </th>
                         <th width="10"> Action </th>
                       </tr>
                     </thead>
@@ -83,12 +84,12 @@ while ($row = mysqli_fetch_array($completed_prescriptions)):
 			                      <tr>
 			                        <td> <?php echo $row['full_name'] ?> </td>
 			                        <td> <?php echo $row['prescription'] ?> </td>
-			                        <td> <label class="badge badge-success"> <?php echo $row['prescription_status'] ?> </label> </td>
+			                        <td class="text-center"> <label class="badge badge-success"> <?php echo $row['prescription_status'] ?> </label> </td>
 
-                              <td>
+                              <td class="text-center">
 			                          <form action="../api/deletePrescription.php" method="POST">
 			                            <input name="prescription_id" type="hidden" value="<?php echo $row['prescription_id'] ?>">
-			                            <button type="submit" name="btnDeletePrescription" class="btn btn-outline-danger btn-sm"><i class="mdi mdi-delete"></i></button>
+			                            <button type="submit" name="btnDeletePrescription" class="btn btn-outline-danger btn-block"><i class="mdi mdi-delete"></i></button>
 			                          </form>
 			                        </td>
 
@@ -113,11 +114,14 @@ if (@$_SESSION['success'] == true) {
     $success = $_SESSION['success'];
     ?>
           <script>
-            swal({
+            Swal.fire({
               title: "SUCCESS!",
               text: "<?php echo $success; ?>",
               icon: "success",
-              button: "OK",
+              timer: 3000,
+              showConfirmButton: false,
+              timerProgressBar: true,
+              background: '#05781a'
             });
           </script>
         <?php
@@ -126,11 +130,14 @@ unset($_SESSION['success']);
     $error = $_SESSION['error'];
     ?>
           <script>
-            swal({
+            Swal.fire({
               title: "ERROR!",
               text: "<?php echo $error; ?>",
-              icon: "warning",
-              button: "OK",
+              icon: "error",
+              timer: 3000,
+              showConfirmButton: false,
+              timerProgressBar: true,
+              background: '#c91b08'
             });
           </script>
         <?php
@@ -139,11 +146,14 @@ unset($_SESSION['error']);
     $missing = $_SESSION['missing'];
     ?>
           <script>
-            swal({
+            Swal.fire({
               title: "INFO!",
               text: "<?php echo $missing; ?>",
               icon: "info",
-              button: "OK",
+              timer: 3000,
+              showConfirmButton: false,
+              timerProgressBar: true,
+              background: '#055096'
             });
           </script>
         <?php

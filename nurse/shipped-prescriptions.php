@@ -35,7 +35,8 @@ if (!isset($_SESSION['username'])) {
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="../assets/images/favicon.png" />
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
 
 </head>
 
@@ -101,10 +102,10 @@ include 'sidebar.php';
                   <table id="usersTable" class="table table-sm table-bordered">
                     <thead>
                       <tr>
-                        <th width="25%"> # </th>
-                        <th width="25%"> Prescription </th>
-                        <th width="25%"> Location </th>
-                        <th width="25%"> Action </th>
+                        <th width="5"> # </th>
+                        <th > Prescription </th>
+                        <th width="10"> Location </th>
+                        <th width="10"> Action </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -120,8 +121,8 @@ while ($row = mysqli_fetch_array($shipped_prescriptions)):
 						                        <td> <?php echo $row['prescription'] ?> </td>
 						                        <td> <?php echo $row['prescription_location'] ?> </td>
 
-			                                    <td>
-						                        <button type="button" class="btn btnUpdatePresLocation btn-outline-primary btn-sm">
+			                                    <td class="text-center">
+						                        <button type="button" class="btn btnUpdatePresLocation btn-outline-primary btn-block">
 				                                <i class="mdi mdi-pencil-box"></i></button>
 						                        </td>
 
@@ -146,11 +147,14 @@ if (@$_SESSION['success'] == true) {
     $success = $_SESSION['success'];
     ?>
           <script>
-            swal({
+            Swal.fire({
               title: "SUCCESS!",
               text: "<?php echo $success; ?>",
               icon: "success",
-              button: "OK",
+              timer: 3000,
+              showConfirmButton: false,
+              timerProgressBar: true,
+              background: '#05781a'
             });
           </script>
         <?php
@@ -159,11 +163,14 @@ unset($_SESSION['success']);
     $error = $_SESSION['error'];
     ?>
           <script>
-            swal({
+            Swal.fire({
               title: "ERROR!",
               text: "<?php echo $error; ?>",
-              icon: "warning",
-              button: "OK",
+              icon: "error",
+              timer: 3000,
+              showConfirmButton: false,
+              timerProgressBar: true,
+              background: '#c91b08'
             });
           </script>
         <?php
@@ -172,11 +179,14 @@ unset($_SESSION['error']);
     $missing = $_SESSION['missing'];
     ?>
           <script>
-            swal({
+            Swal.fire({
               title: "INFO!",
               text: "<?php echo $missing; ?>",
               icon: "info",
-              button: "OK",
+              timer: 3000,
+              showConfirmButton: false,
+              timerProgressBar: true,
+              background: '#055096'
             });
           </script>
         <?php
