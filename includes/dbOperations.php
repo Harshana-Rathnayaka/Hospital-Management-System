@@ -356,7 +356,7 @@ class DbOperations
     // getting the pending lab tests table to the user
     public function getPendingLabTestsByUser($user_id)
     {
-        $stmt = $this->con->prepare("SELECT * FROM `lab_tests` WHERE `patient_id` = ? AND `test_status` = 'PENDING'");
+        $stmt = $this->con->prepare("SELECT * FROM `lab_tests` WHERE `patient_id` = ? AND `test_status` = 'PAID'");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         return $stmt->get_result();
@@ -443,7 +443,7 @@ class DbOperations
     // getting pending lab tests to the staff
     public function getPendingLabTests()
     {
-        $stmt = $this->con->prepare("SELECT * FROM `lab_tests` INNER JOIN `users` ON users.user_id = lab_tests.patient_id WHERE `test_status` = 'PENDING'");
+        $stmt = $this->con->prepare("SELECT * FROM `lab_tests` INNER JOIN `users` ON users.user_id = lab_tests.patient_id WHERE `test_status` = 'PAID'");
         $stmt->execute();
         return $stmt->get_result();
 
