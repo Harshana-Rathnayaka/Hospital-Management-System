@@ -151,7 +151,7 @@ while ($row = mysqli_fetch_array($ongoing_appointments_user)):
                                 <label class="badge badge-success"> <?php echo $row['appointment_status'] ?> </label>
                                 </td>
                                 <td>
-                                <button type="button" class="btn btnViewPayment btn-outline-info btn-block"> <i class="mdi mdi-pencil-box"></i> </button>
+                                <button type="button" class="btn btnViewPayment btn-outline-info btn-block"> <i class="mdi mdi-credit-card"></i> </button>
                                 </td>
                               </tr>
 
