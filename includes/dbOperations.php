@@ -85,6 +85,21 @@ class DbOperations
         }
     }
 
+    // make payments by user
+    public function addToPayments($patient_id, $payment_for, $amount, $stripe_customer_id)
+    {
+        $stmt = $this->con->prepare("INSERT INTO `payments`(`payment_id`, `patient_id`, `payment_for`, `paid_amount`, `stripe_customer_id`) VALUES (NULL, ?, ?, ?, ?);");
+        $stmt->bind_param("isss", $patient_id, $payment_for, $amount, $stripe_customer_id);
+
+        if ($stmt->execute()) {
+            // payment created
+            return 0;
+        } else {
+            // some error
+            return 1;
+        }
+    }
+
     // create new lab test request by user
     public function requestALabTest($user_id, $details)
     {
