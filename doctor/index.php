@@ -141,7 +141,7 @@ while ($row = mysqli_fetch_array($ongoing_appointments_doctor)):
 	                              <td class="text-center">
 	                              <form>
 	                    <input value="<?php echo $row['patient_id'] ?>" type="hidden">
-	                    <button type="button" class="btnCompleteAppointment btn btn-icon-text btn-outline-primary btn-block"><i class="mdi mdi-file-check btn-icon-prepend"></i> Done </button>
+	                    <button type="button" class="btnCompleteAppointment btn btn-icon-text btn-outline-primary btn-block"><i class="mdi mdi-calendar-check btn-icon-prepend"></i> Done </button>
 	                              </form>
 	                              </td>
 	                      </tr>
