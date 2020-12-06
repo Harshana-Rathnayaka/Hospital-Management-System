@@ -100,17 +100,12 @@ class DbOperations
         }
     }
 
-    // marking as PAID by user
-    public function markAsPaid($id, $payment_for)
+    // marking the appointment as PAID by the user
+    public function markAsPaid($appointment_id)
     {
 
-        if ($payment_for == 'APPOINTMENT') {
-            $stmt = $this->con->prepare("UPDATE `appointments` SET `appointment_status` = 'PAID' WHERE `appointment_id` = ?");
-            $stmt->bind_param("i", $id);
-        } elseif ($payment_for == 'LAB_TEST') {
-            $stmt = $this->con->prepare("UPDATE `lab_tests` SET `test_status` = 'PAID' WHERE `test_id` = ?");
-            $stmt->bind_param("i", $id);
-        }
+        $stmt = $this->con->prepare("UPDATE `appointments` SET `appointment_status` = 'PAID' WHERE `appointment_id` = ?");
+        $stmt->bind_param("i", $appointment_id);
 
         if ($stmt->execute()) {
             // marked as PAID
@@ -122,13 +117,13 @@ class DbOperations
     }
 
     // create new lab test request by user
-    public function requestALabTest($user_id, $details)
+    public function requestALabTest($patient_id, $details)
     {
-        $stmt = $this->con->prepare("INSERT INTO `lab_tests` (`test_id`, `patient_id`, `details`, `test_status`) VALUES (NULL, ?, ?, 'PENDING');");
-        $stmt->bind_param("is", $user_id, $details);
+        $stmt = $this->con->prepare("INSERT INTO `lab_tests` (`test_id`, `patient_id`, `details`, `test_status`) VALUES (NULL, ?, ?, 'PAID');");
+        $stmt->bind_param("is", $patient_id, $details);
 
         if ($stmt->execute()) {
-            // new appointment created
+            // new lab test created
             return 0;
         } else {
             // some error

@@ -33,6 +33,7 @@ if (!isset($_SESSION['username'])) {
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="./charge.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -72,10 +73,14 @@ include 'sidebar.php';
                     <div class="col-12 grid-margin">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">New Test</h4>
-                                <form class="form-sample" action="../api/createLabTest.php" method="POST">
+                                <h4 class="card-title">New Lab Test</h4>
+                                <form class="form-sample" form action="../api/charge.php" method="post" id="payment-form">
 
                                 <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                <input type="hidden" id="amount" name="amount" value="700000">
+                                <input type="hidden" id="payment_for" name="payment_for" value="LAB_TEST">
+
+                                <p class="card-description"> Lab Test info </p>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group row">
@@ -86,6 +91,30 @@ include 'sidebar.php';
                                             </div>
                                         </div>
                                     </div>
+
+                                    
+                                    <p class="card-description"> Card info </p>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+
+                                                <label class="col-sm-3 col-form-label">Name on card</label>
+                                                <input type="text" name="name_on_card" class="form-control col-sm-9 bg-dark mb-2 text-light StripeElement StripeElement--empty" placeholder="John Doe">
+                                                <label class="col-sm-3 col-form-label">Card </label>
+
+                                                <div id="card-element" class="form-control col-sm-9  mb-4 bg-dark">
+                                                    <!-- A Stripe Element will be inserted here. -->
+                                                </div>
+
+                                                <!-- Used to display form errors. -->
+                                                <div id="card-errors" role="alert" class="text-danger"></div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <small class="text-danger text-center mt-3">You will be charged an amount of Rs. 7000/= for this lab test. *</small>
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -171,6 +200,9 @@ unset($_SESSION['missing']);
     <!-- Custom js for this page -->
     <script src="../assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="./charge.js"></script>
 </body>
 
 </html>
