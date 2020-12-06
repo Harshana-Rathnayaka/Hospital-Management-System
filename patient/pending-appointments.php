@@ -172,6 +172,7 @@ if (@$_SESSION['success'] == true) {
               timer: 3000,
               showConfirmButton: false,
               timerProgressBar: true,
+              background: '#05781a'
             });
           </script>
         <?php
@@ -183,10 +184,11 @@ unset($_SESSION['success']);
             Swal.fire({
               title: "ERROR!",
               text: "<?php echo $error; ?>",
-              icon: "warning",
+              icon: "error",
               timer: 3000,
               showConfirmButton: false,
               timerProgressBar: true,
+              background: '#c91b08'
             });
           </script>
         <?php
@@ -202,6 +204,7 @@ unset($_SESSION['error']);
               timer: 3000,
               showConfirmButton: false,
               timerProgressBar: true,
+              background: '#055096'
             });
           </script>
         <?php
