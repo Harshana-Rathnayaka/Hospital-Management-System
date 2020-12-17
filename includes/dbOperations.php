@@ -146,7 +146,7 @@ class DbOperations
         }
     }
 
-    // uploading lab report by doctor
+    // uploading lab report by staff
     public function uploadTheLabReport($lab_test_id, $report_link)
     {
         $stmt = $this->con->prepare("INSERT INTO `lab_reports` (`report_id`, `lab_test_id`, `file_location`) VALUES (NULL, ?, ?);");
@@ -181,15 +181,6 @@ class DbOperations
         return $stmt->get_result()->fetch_assoc();
     }
 
-    // retreiving vehicle data
-    public function getVehicleByID($vehicle_id)
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `vehicles` INNER JOIN `manufacturers` ON manufacturers.make_id = vehicles.make INNER JOIN `colours` ON colours.id = vehicles.colour INNER JOIN `transmissions` ON transmissions.id = vehicles.transmission WHERE `vehicle_id` = ?");
-        $stmt->bind_param("i", $vehicle_id);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
-    }
-
     // checking if the user exists
     private function isUserExist($username, $email)
     {
@@ -218,52 +209,6 @@ class DbOperations
         $stmt->execute();
         $stmt->store_result();
         return $stmt->num_rows > 0;
-    }
-
-    // checking if the manufacturer exists
-    private function isManufacturerExist($name)
-    {
-        $stmt = $this->con->prepare("SELECT `make_id` FROM `manufacturers` WHERE `name` = ?");
-        $stmt->bind_param("s", $name);
-        $stmt->execute();
-        $stmt->store_result();
-        return $stmt->num_rows > 0;
-    }
-
-    // retrieving manufacturers table
-    public function getManufacturers()
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `manufacturers`");
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    // retrieving colours table
-    public function getColours()
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `colours`");
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    // retrieving vehicles table
-    public function getVehicles()
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `vehicles` INNER JOIN `manufacturers` ON manufacturers.make_id = vehicles.make INNER JOIN `colours` ON colours.id = vehicles.colour INNER JOIN `transmissions` ON transmissions.id = vehicles.transmission ORDER BY `vehicle_id`");
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    // retrieving wishlist table
-    public function getWishlistByUserId($user_id)
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `wishlist` INNER JOIN `users` ON users.id = wishlist.user_id INNER JOIN
-		vehicles ON vehicles.vehicle_id = wishlist.vehicle_id INNER JOIN `manufacturers` ON manufacturers.make_id = wishlist.make_id
-		 WHERE `user_id` = ? ORDER BY `wishlist_id`
-		");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        return $stmt->get_result();
     }
 
     // retrieving users table
@@ -465,36 +410,6 @@ class DbOperations
         $stmt->execute();
         return $stmt->get_result();
 
-    }
-
-    // getting the orders count by user
-    public function getOrdersCountByUserId($user_id)
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `orders` WHERE `user_id` = ?");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return mysqli_num_rows($result);
-    }
-
-    // getting the cart count by user
-    public function getCartCountByUserId($user_id)
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `cart` WHERE `user_id` = ?");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return mysqli_num_rows($result);
-    }
-
-    // getting the wishlist count by user
-    public function getWishlistCountByUserId($user_id)
-    {
-        $stmt = $this->con->prepare("SELECT * FROM `wishlist` WHERE `user_id` = ?");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return mysqli_num_rows($result);
     }
 
     /* CRUD  -> U -> UPDATE */
@@ -709,21 +624,6 @@ class DbOperations
         }
     }
 
-    // confirm or refund order by updating order status from admin side
-    public function updateOrderStatus($order_id, $status)
-    {
-        $stmt = $this->con->prepare("UPDATE `orders` SET `order_status` = ? WHERE `order_id` = ?");
-        $stmt->bind_param("ii", $status, $order_id);
-
-        if ($stmt->execute()) {
-            // user account status updated by admin
-            return 0;
-        } else {
-            // some error
-            return 1;
-        }
-    }
-
     // update admin details
     public function updateAdminAccountDetails($userid, $firstname, $lastname, $username, $email)
     {
@@ -754,95 +654,4 @@ class DbOperations
         }
     }
 
-    // update a vehicle
-    public function updateVehicleDetails($vehicle_id, $model, $year, $engine, $transmission, $horsepower, $condition, $seats, $price, $in_stock)
-    {
-        $stmt = $this->con->prepare("UPDATE `vehicles` SET `model` = ?, `year` = ?, `engine_capacity` = ?, `transmission` = ?, `horsepower` = ?, `vehicle_condition` = ?, `seats` = ?, `price` = ?, `in_stock` = ? WHERE `vehicle_id` = ?");
-        $stmt->bind_param("ssssssisss", $model, $year, $engine, $transmission, $horsepower, $condition, $seats, $price, $in_stock, $vehicle_id);
-
-        if ($stmt->execute()) {
-            // vehicle updated
-            return 0;
-        } else {
-            // some error
-            return 1;
-        }
-    }
-
-    // update colours
-    public function updateColour($colour_id, $colour)
-    {
-        $stmt = $this->con->prepare("UPDATE `colours` SET `colour` = ? WHERE `id` = ?");
-        $stmt->bind_param("si", $colour, $colour_id);
-
-        if ($stmt->execute()) {
-            // colour updated
-            return 0;
-        } else {
-            // some error
-            return 1;
-        }
-    }
-
-    // update manufacturers
-    public function updateManufacturer($manufacturer_id, $name, $address, $email, $contact)
-    {
-        $stmt = $this->con->prepare("UPDATE `manufacturers` SET `name` = ?, `address` = ?, `email` = ?, `contact` = ? WHERE `make_id` = ?");
-        $stmt->bind_param("ssssi", $name, $address, $email, $contact, $manufacturer_id);
-
-        if ($stmt->execute()) {
-            // manufacturer updated
-            return 0;
-        } else {
-            // some error
-            return 1;
-        }
-    }
-
-    /* CRUD  -> D -> DELETE */
-
-    // delete wishlist item
-    public function deleteWishlist($wishlist_id)
-    {
-        $stmt = $this->con->prepare("DELETE FROM `wishlist` WHERE `wishlist_id` = ?");
-        $stmt->bind_param("i", $wishlist_id);
-
-        if ($stmt->execute()) {
-            // item deleted
-            return 1;
-        } else {
-            // some error
-            return 2;
-        }
-    }
-
-    // delete cart item
-    public function deleteCartItem($cart_id)
-    {
-        $stmt = $this->con->prepare("DELETE FROM `cart` WHERE `cart_id` = ?");
-        $stmt->bind_param("i", $cart_id);
-
-        if ($stmt->execute()) {
-            // item deleted
-            return 1;
-        } else {
-            // some error
-            return 2;
-        }
-    }
-
-    // delete vehicle
-    public function deleteVehicle($vehicle_id)
-    {
-        $stmt = $this->con->prepare("DELETE FROM `vehicles` WHERE `vehicle_id` = ?");
-        $stmt->bind_param("i", $vehicle_id);
-
-        if ($stmt->execute()) {
-            // vehicle deleted
-            return 1;
-        } else {
-            // some error
-            return 2;
-        }
-    }
 }
